@@ -6,7 +6,7 @@ You are allowed to use the following functions:
 ◦ The functions of man 3 stdarg
 
 
-int printf( const char *format, ... );
+int printf(const char *format, ... );
 
 %[флаги][ширина][.точность][размер]тип
 Обязательными составными частями являются символ начала спецификатора формата (%) и тип.
