@@ -6,7 +6,7 @@
 /*   By: oearlene <oearlene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/12 13:19:54 by oearlene          #+#    #+#             */
-/*   Updated: 2020/09/12 17:56:25 by oearlene         ###   ########.fr       */
+/*   Updated: 2020/09/12 23:18:56 by oearlene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,24 +27,24 @@
 
 typedef struct			s_flags
 {
-	int					pound;
+	int					hash;
 	int					zero;
 	int					minus;
 	int					plus;
 	int					space;
 }						t_flags;
 
-typedef enum			e_modifier
+typedef enum			e_length
 {
-	NONE, HH, H, LL, L, J, Z
-}						t_modifier;
+	NONE, HH, H, LL, L
+}						t_length;
 
 typedef struct			s_conversion
 {
 	char				sep;
 	long int			min_width;
 	long int			precision;
-	int					prec_set;
+	int					prec_set; // is precision set or no
 	char				type;
 	char				sign;
 }						t_conversion;
@@ -59,14 +59,14 @@ typedef struct		s_data
 	size_t			i; // counter of reading string
 
 	t_conversion	*conv;
-	t_modifier		modif;
+	t_length		length;
 	t_flags			*flags;
 
 
 	/*
 	int 		counter;
 	char 		*flags;
-	char 		*type;
+	char 		*type; // cs p diouxX %
 	char		c;
 	int 		true;
 
@@ -76,20 +76,34 @@ typedef struct		s_data
 	int 		length; // ll l hh h
 
 */
+	// need to be done f F (l L)
 
 }				t_data;
 
 
-int				ft_printf(const char *format, ...);
-int				parser(t_data *ptr);
-int				next_parser(t_data *ptr);
+t_data				*initialize(const char *format);
 
 
+int					parser(t_data *ptr, va_list arg);
+int					next_parser(t_data *ptr, va_list arg);
+char				*parse_conversion(t_data *ptr);
+static char			*parse_length(t_data *ptr);
+static char			*parse_precision(t_data *ptr);
+static char			*parse_min_width(t_data *ptr);
+static char			*parse_flags(t_data *ptr);
 
 
+int					print_nbr_conv(t_data *ptr, va_list arg);
+static void			check_if_alias(t_data *ptr);
+unsigned long long	get_conv_unsign(t_data *ptr, va_list arg);
+long long			get_conv_sign(t_data *ptr, va_list arg);
 
-t_data			*initialize(t_data *ptr, const char *format);
 
+int					print_u(t_data *ptr, unsigned long long num);
+int					print_d(t_data *ptr, long long num);
+int					print_o(t_data *ptr, unsigned long long n);
+int					print_x(t_data *ptr,unsigned long long n);
+int					print_x_caps(t_data *ptr,unsigned long long n);
 
 
 #endif //FT_PRINTF_H

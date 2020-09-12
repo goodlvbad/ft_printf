@@ -9,6 +9,7 @@ You are allowed to use the following functions:
 int printf(const char *format, ... );
 
 %[флаги][ширина][.точность][размер]тип
+%[flags][width][.precision][length]type
 Обязательными составными частями являются символ начала спецификатора формата (%) и тип.
 
 • You have to manage the following conversions: csp :
@@ -32,6 +33,9 @@ int printf(const char *format, ... );
     f и F — числа с плавающей запятой. По умолчанию выводятся с точностью 6, если число по модулю меньше единицы, перед десятичной точкой пишется 0. Величины ±∞ представляются в форме [-]inf или [-]infinity, Величина Nan представляется как [-]nan или [-]nan(любой текст далее). Использование F выводит указанные величины заглавными буквами (-INF, NAN). Аргумент по умолчанию имеет размер double.
 
     L	long double
+    L -	For floating point types, causes printf to expect a long double argument.
+    l -	For floating point types, this is ignored. float arguments are always promoted to double when used in a varargs call.
+
 
 • You must manage %%
     Стандартным признаком начала спецификатора формата является символ % (Знак процента), для вывода самого знака % используется его удвоение %%.
