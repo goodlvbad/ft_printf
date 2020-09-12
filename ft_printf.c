@@ -1,23 +1,27 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: oearlene <oearlene@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/09/12 13:19:15 by oearlene          #+#    #+#             */
+/*   Updated: 2020/09/12 17:40:50 by oearlene         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "ft_printf.h"
 
-t_data	*initialize(t_data *ptr, const char *format)
+t_data	*initialize(const char *format)
 {
-	if (!(ptr = (t_data*)malloc(sizeof(t_data))))
-		return (NULL);
+	t_data *ptr;
+
 	ptr->format = format;
 	ptr->len = 0;
 	ptr->i = 0;
-	ptr->minus = 0;
-	ptr->plus = 0;
-	ptr->space = 0;
-	ptr->hash = 0;
-	ptr->zero = 0;
-	ptr->field_width = 0;
-	ptr->precision = 0;
-	ptr->length = 0;
-	ptr->f_print = (char *)ptr->format;
+	ptr->modif = NONE;
 	ptr->f_copy = (char *)ptr->format;
+	ptr->f_print = (char *)ptr->format;
 	return (ptr);
 }
 
@@ -26,22 +30,34 @@ int		ft_printf(const char *format, ...)
 	t_data *ptr;
 	va_list	args;
 
-	// function that create struct
-	if (!(ptr = initialize(ptr, format)))
-		return (-1);
-
+	ptr = initialize(format);
 	if (format)
 	{
 		va_start(args, format);
-		ptr->len = parser(ptr);
+		ptr->len = parser(ptr, args);
 		va_end(args);
 	}
 
-	// clear struct
-	free(ptr);
-
 	// return (length of string)
 	return (ptr->len);
+}
+
+{
+	va_list			ap;
+	char			*str;
+
+	va_start(ap, format);
+	str = (char *)format;
+	while (*str != '\0')
+	{
+		str = print_until(str, '%');
+		if (*str == '%')
+		str++;
+		if (*str != '\0')
+		str = print_conversion(str, ap);
+	}
+	va_end(ap);
+	return (tally_get(0, 0));
 }
 
 
