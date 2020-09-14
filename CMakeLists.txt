@@ -12,9 +12,7 @@ add_executable(ft_printf
         libft/ft_isalpha.c
         libft/ft_isascii.c
         libft/ft_isdigit.c
-
         libft/ft_isprint.c
-
         libft/ft_itoa.c
         libft/ft_lstadd.c
         libft/ft_lstdel.c
@@ -28,11 +26,8 @@ add_executable(ft_printf
         libft/ft_memcmp.c
         libft/ft_memcpy.c
         libft/ft_memdel.c
-
         libft/ft_memmove.c
         libft/ft_memset.c
-
-
         libft/ft_putchar.c
         libft/ft_putchar_fd.c
         libft/ft_putendl.c
@@ -53,7 +48,6 @@ add_executable(ft_printf
         libft/ft_striteri.c
         libft/ft_strjoin.c
         libft/ft_strlcat.c
-
         libft/ft_strlen.c
         libft/ft_strmap.c
         libft/ft_strmapi.c
@@ -64,7 +58,6 @@ add_executable(ft_printf
         libft/ft_strnew.c
         libft/ft_strnstr.c
         libft/ft_strrchr.c
-
         libft/ft_strsplit.c
         libft/ft_strstr.c
         libft/ft_strsub.c
@@ -76,7 +69,6 @@ add_executable(ft_printf
         ft_printf.c
         ft_printf.h
         parser.c
-
         print_numbers.c
         print_nbr_conversions.c
         main.c)

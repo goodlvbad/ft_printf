@@ -6,7 +6,7 @@
 /*   By: oearlene <oearlene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/12 13:19:54 by oearlene          #+#    #+#             */
-/*   Updated: 2020/09/14 16:18:46 by oearlene         ###   ########.fr       */
+/*   Updated: 2020/09/14 17:20:00 by oearlene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@
 # include <fcntl.h>
 
 # include "libft.h"
-
-# include <stdio.h>
 
 
 typedef struct			s_flags
@@ -87,7 +85,7 @@ int					ft_printf(const char *format, ...);
 t_data				*initialize(t_data *ptr);
 
 
-int					parser(t_data *ptr, va_list arg);
+void				parser(t_data *ptr, va_list arg);
 void				next_parser(t_data *ptr, va_list arg);
 void				parse_conversion(t_data *ptr);
 void				parse_length(t_data *ptr);

@@ -50,7 +50,7 @@ void		next_parser(t_data *ptr, va_list arg)
 
 
 
-int		parser(t_data *ptr, va_list arg)
+void		parser(t_data *ptr, va_list arg)
 {
 	while (ptr->f_copy[ptr->i] != '\0')
 	{
@@ -65,7 +65,6 @@ int		parser(t_data *ptr, va_list arg)
 		}
 		ptr->i++;
 	}
-	return (ptr->len);
 }
 
 
@@ -80,7 +79,7 @@ int		ft_printf(const char *format, ...)
 	if (format)
 	{
 		va_start(args, format);
-		ptr->len = parser(ptr, args);
+		parser(ptr, args);
 		va_end(args);
 	}
 	else

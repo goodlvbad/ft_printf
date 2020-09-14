@@ -19,7 +19,7 @@ int		print_spacing(int len, int min, char c)
 	i = 0;
 	while (min > len)
 	{
-		putchar(c);
+		ft_putchar(c);
 		min--;
 		i++;
 	}

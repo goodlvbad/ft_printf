@@ -6,19 +6,24 @@
 /*   By: oearlene <oearlene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 14:00:19 by oearlene          #+#    #+#             */
-/*   Updated: 2020/09/14 16:41:32 by oearlene         ###   ########.fr       */
+/*   Updated: 2020/09/14 17:22:31 by oearlene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
+#include <stdio.h>
+
 int		main(void)
 {
-
+/*
 	int *res;
 	int re[2];
 	char *kek;
+ */
+
 	int r;
+	int j;
 
 	/*
 	char	*s1 = "loljvdsnlkjvns dnvlsk jfwk;qdwdkf";
@@ -249,8 +254,12 @@ int		main(void)
 	r = printf("%05.*d", 1, 41);
 	printf("\n%d\n", r);
 	 */
-	ft_printf("%05.d", 42);
-	//printf("\n%d\n", r);
+	ft_printf("my printf :%05.d", 42);
+
+//	printf("\ntotal : %d\n", r);
+
+	printf("\nprintf :%05.d", 42);
+
 	/*
 	r = printf("%05.d", 42);
 	printf("\n%d\n", r);
@@ -480,5 +489,5 @@ int		main(void)
 
 	*/
 
-	return 0;
+	return (0);
 }
