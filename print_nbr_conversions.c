@@ -6,7 +6,7 @@
 /*   By: oearlene <oearlene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/12 23:15:09 by oearlene          #+#    #+#             */
-/*   Updated: 2020/09/12 23:15:09 by oearlene         ###   ########.fr       */
+/*   Updated: 2020/09/14 14:00:16 by oearlene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,11 @@ static void		check_if_alias(t_data *ptr)
 	}
 }
 
-int		print_nbr_conv(t_data *ptr, va_list arg)
+void		print_nbr_conv(t_data *ptr, va_list arg)
 {
-	int len
 	unsigned long long	n;
 	long long nb;
 
-	len = 0;
 	check_if_alias(ptr);
 	if (ptr->conv->type == 'd')
 	{
@@ -66,18 +64,16 @@ int		print_nbr_conv(t_data *ptr, va_list arg)
 			ptr->conv->sign = '+';
 		else if (ptr->flags->space)
 			ptr->conv->sign = ' ';
-		len = print_d(ptr, nb);
+		ptr->len += print_d(ptr, nb);
 	}
 	else
 		n = get_conv_unsign(ptr, arg);
 	if (ptr->conv->type == 'u')
-		len = print_u(ptr, n);
+		ptr->len += print_u(ptr, n);
 	else if (ptr->conv->type == 'o')
-		len = print_o(ptr, n);
+		ptr->len += print_o(ptr, n);
 	else if (ft_strchr("xp", ptr->conv->type))
-		len = print_x(ptr, n);
+		ptr->len += print_x(ptr, n);
 	else if (ptr->conv->type == 'X')
-		len = print_x_caps(ptr, n);
-
-	return (len);
+		ptr->len += print_x_caps(ptr, n);
 }

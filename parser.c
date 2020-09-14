@@ -6,100 +6,103 @@
 /*   By: oearlene <oearlene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/12 13:19:45 by oearlene          #+#    #+#             */
-/*   Updated: 2020/09/12 22:40:31 by oearlene         ###   ########.fr       */
+/*   Updated: 2020/09/14 16:29:40 by oearlene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static char	*parse_flags(t_data *ptr)
+void	parse_flags(t_data *ptr)
 {
-	while (ft_strchr("#0-+ ", *ptr->f_print))
+	while (ft_strchr("#0-+ ", ptr->f_copy[ptr->i]))
 	{
-		if (*ptr->f_print == '#')
+		if (ptr->f_copy[ptr->i] == '#')
 			ptr->flags->hash = 1;
-		else if (*ptr->f_print == '0')
+		else if (ptr->f_copy[ptr->i] == '0')
 			ptr->flags->zero = 1;
-		else if (*ptr->f_print == '-')
+		else if (ptr->f_copy[ptr->i] == '-')
 			ptr->flags->minus = 1;
-		else if (*ptr->f_print == '+')
+		else if (ptr->f_copy[ptr->i] == '+')
 			ptr->flags->plus = 1;
-		else if (*ptr->f_print == ' ')
+		else if (ptr->f_copy[ptr->i] == ' ')
 			ptr->flags->space = 1;
-		else if (*ptr->f_print == '\0')
+		else if (ptr->f_copy[ptr->i] == '\0')
 			break ;
-		else
-			printf_error("Parse Flags fucked up.");
-		ptr->f_print++;
+	//	else
+	//		printf_error("Parse Flags fucked up.");
+		ptr->i++;
 	}
-	if (!ptr->f_print)
-		printf_error("Invalid format. (After Flags)");
-	return (ptr->f_print);
+	//if (!ptr->f_print)
+	//	printf_error("Invalid format. (After Flags)");
 }
 
-static char	*parse_min_width(t_data *ptr)
+void	parse_min_width(t_data *ptr)
 {
+	char *str;
+
+	str = &(ptr->f_copy[ptr->i]);
 	// add '*.'
-	ptr->conv->min_width = ft_atoi(ptr->f_print);
-	while (ft_isdigit(*ptr->f_print))
-		ptr->f_print++;
-	if (!ptr->f_print)
-		printf_error("Invalid format. (After Min Width)");
-	return (ptr->f_print);
+	ptr->conv->min_width = ft_atoi(str);
+	while (ft_isdigit(ptr->f_copy[ptr->i]))
+		ptr->i++;
+//	if (!ptr->f_print)
+	//	printf_error("Invalid format. (After Min Width)");
 }
 
-static char	*parse_precision(t_data *ptr)
+void	parse_precision(t_data *ptr)
 {
-	if (*ptr->f_print != '.')
-		return (ptr->f_print);
-	ptr->f_print++;
+	char *str;
+
+	if (ptr->f_copy[ptr->i] != '.')
+		return ;
+	ptr->i++;
+	str = &(ptr->f_copy[ptr->i]);
 	// add '.*'
-	ptr->conv->precision = ft_atoi(ptr->f_print);
+	ptr->conv->precision = ft_atoi(str);
 	ptr->conv->prec_set = 1;
-	while (ft_isdigit(*ptr->f_print))
-		ptr->f_print++;
-	if (!ptr->f_print)
-		printf_error("Invalid format. (After Precision)");
-	return (ptr->f_print);
+	while (ft_isdigit(ptr->f_copy[ptr->i]))
+		ptr->i++;
+//	if (!ptr->f_print)
+	//	printf_error("Invalid format. (After Precision)");
 }
 
-static char	*parse_length(t_data *ptr)
+void	parse_length(t_data *ptr)
 {
-	if (!ft_strchr("hl", *ptr->f_print))
-		return (ptr->f_print);
-	if (ft_strncmp(ptr->f_print, "hh", 2) == 0)
+	char *str;
+	if (!ft_strchr("hl", ptr->f_copy[ptr->i]))
+		return ;
+	str = &(ptr->f_copy[ptr->i]);
+	if (ft_strncmp(str, "hh", 2) == 0)
 	{
 		ptr->length = HH;
-		return (ptr->f_print + 2);
+		ptr->i += 2;
 	}
-	if (ft_strncmp(ptr->f_print, "ll", 2) == 0)
+	if (ft_strncmp(str, "ll", 2) == 0)
 	{
 		ptr->length = LL;
-		return (ptr->f_print + 2);
+		ptr->i += 2;
 	}
-	else if (*ptr->f_print == 'h')
+	else if (ptr->f_copy[ptr->i] == 'h')
 		ptr->length = H;
-	else if (*ptr->f_print == 'l')
+	else if (ptr->f_copy[ptr->i] == 'l')
 		ptr->length = L;
-	return (ptr->f_print + 1);
+	ptr->i++;
 }
 
-char		*parse_conversion(t_data *ptr)
+void	parse_conversion(t_data *ptr)
 {
-	ptr->f_print += ptr->i;
-	ptr->f_print = parse_flags(ptr);
-	if (ft_strchr(",;:_", *ptr->f_print))
+	parse_flags(ptr);
+	if (ft_strchr(",;:_", ptr->f_copy[ptr->i]))
 	{
-		ptr->conv->sep = *ptr->f_print;
-		ptr->f_print++;
+		ptr->conv->sep = ptr->f_copy[ptr->i];
+		ptr->i++;
 	}
-	if (!ptr->f_print)
-		printf_error("Invalid format. (After Separator)");
-	ptr->f_print = parse_min_width(ptr);
-	ptr->f_print = parse_precision(ptr);
-	ptr->f_print = parse_length(ptr);
-	if (!ptr->f_print)
-		printf_error("Invalid format. (After Length)");
-	ptr->conv->type = *ptr->f_print;
-	return (ptr->f_print + 1);
+//	if (!ptr->f_print)
+//		printf_error("Invalid format. (After Separator)");
+	parse_min_width(ptr);
+	parse_precision(ptr);
+	parse_length(ptr);
+//	if (!ptr->f_print)
+//		printf_error("Invalid format. (After Length)");
+	ptr->conv->type = ptr->f_copy[ptr->i];
 }

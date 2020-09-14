@@ -77,4 +77,6 @@ add_executable(ft_printf
         ft_printf.h
         parser.c
 
-        print_numbers.c print_strings.c print_nbr_conversions.c)
+        print_numbers.c
+        print_nbr_conversions.c
+        main.c)

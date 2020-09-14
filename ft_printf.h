@@ -6,7 +6,7 @@
 /*   By: oearlene <oearlene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/12 13:19:54 by oearlene          #+#    #+#             */
-/*   Updated: 2020/09/12 23:18:56 by oearlene         ###   ########.fr       */
+/*   Updated: 2020/09/14 16:18:46 by oearlene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ typedef struct		s_data
 {
 	const char		*format; // string
 	char			*f_copy; // copy of string
-	char			*f_print; // copy of string that print after '%'
+	char			f_print[100]; // copy of string that print after '%'
 	int				len; // length of string
 	size_t			i; // counter of reading string
 
@@ -81,19 +81,23 @@ typedef struct		s_data
 }				t_data;
 
 
-t_data				*initialize(const char *format);
+
+int					ft_printf(const char *format, ...);
+
+t_data				*initialize(t_data *ptr);
 
 
 int					parser(t_data *ptr, va_list arg);
-int					next_parser(t_data *ptr, va_list arg);
-char				*parse_conversion(t_data *ptr);
-static char			*parse_length(t_data *ptr);
-static char			*parse_precision(t_data *ptr);
-static char			*parse_min_width(t_data *ptr);
-static char			*parse_flags(t_data *ptr);
+void				next_parser(t_data *ptr, va_list arg);
+void				parse_conversion(t_data *ptr);
+void				parse_length(t_data *ptr);
+void				parse_precision(t_data *ptr);
+void				parse_min_width(t_data *ptr);
+void				parse_flags(t_data *ptr);
 
 
-int					print_nbr_conv(t_data *ptr, va_list arg);
+void				print_nbr_conv(t_data *ptr, va_list arg);
+
 static void			check_if_alias(t_data *ptr);
 unsigned long long	get_conv_unsign(t_data *ptr, va_list arg);
 long long			get_conv_sign(t_data *ptr, va_list arg);
