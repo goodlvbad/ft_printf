@@ -6,7 +6,7 @@
 /*   By: oearlene <oearlene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/12 19:06:12 by oearlene          #+#    #+#             */
-/*   Updated: 2020/09/18 19:17:23 by oearlene         ###   ########.fr       */
+/*   Updated: 2020/09/18 20:43:35 by oearlene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,7 @@ int		print_u(t_data *ptr, unsigned long long n)
 
 	len = 0;
 	i = 99;
-	if (!ptr->conv->prec_set)
-		ptr->f_print[--i] = '0' + (n % 10);
+	ptr->f_print[--i] = '0' + (n % 10);
 	while ((n /= 10) > 0)
 		ptr->f_print[--i] = '0' + (n % 10);
 	if (ptr->conv->prec_set)
@@ -70,8 +69,7 @@ int		print_d(t_data *ptr, long long nb)
 
 	len = 0;
 	i = 99;
-	if (nb > 0 || !ptr->conv->prec_set)
-		ptr->f_print[--i] = '0' + (nb % 10);
+	ptr->f_print[--i] = '0' + (nb % 10);
 	while ((nb /= 10) > 0)
 		ptr->f_print[--i] = '0' + (nb % 10);
 	if (ptr->conv->prec_set)
@@ -97,8 +95,7 @@ int			print_o(t_data *ptr, unsigned long long n)
 	int		i;
 
 	i = 99;
-	if (!ptr->conv->prec_set)
-		ptr->f_print[--i] = '0' + (n % 8);
+	ptr->f_print[--i] = '0' + (n % 8);
 	while ((n /= 8) > 0)
 		ptr->f_print[--i] = '0' + (n % 8);
 	if (ptr->flags->hash && ptr->f_print[i] != '0')
@@ -117,13 +114,10 @@ int			print_x(t_data *ptr,unsigned long long n)
 	int		i;
 
 	i = 99;
-	if (!ptr->conv->prec_set)
-	{
-		if ((n % 16) <= 9)
-			ptr->f_print[--i] = '0' + (n % 16);
-		else
-			ptr->f_print[--i] = '0' + (n % 16) + 39;
-	}
+	if ((n % 16) <= 9)
+		ptr->f_print[--i] = '0' + (n % 16);
+	else
+		ptr->f_print[--i] = '0' + (n % 16) + 39;
 	while ((n /= 16) > 0)
 	{
 		if ((n % 16) <= 9)
@@ -154,13 +148,11 @@ int			print_x_caps(t_data *ptr,unsigned long long n)
 	int		i;
 
 	i = 99;
-	if (!ptr->conv->prec_set)
-	{
-		if ((n % 16) <= 9)
-			ptr->f_print[--i] = '0' + (n % 16);
-		else
-			ptr->f_print[--i] = '0' + (n % 16) + 7;
-	}
+	len = 0;
+	if ((n % 16) <= 9)
+		ptr->f_print[--i] = '0' + (n % 16);
+	else
+		ptr->f_print[--i] = '0' + (n % 16) + 7;
 	while ((n /= 16) > 0)
 	{
 		if ((n % 16) <= 9)
@@ -183,6 +175,6 @@ int			print_x_caps(t_data *ptr,unsigned long long n)
 		ptr->f_print[--i] = 'X';
 		ptr->f_print[--i] = '0';
 	}
-	len = print_num_spaced(ptr, ptr->f_print + i);
+	len += print_num_spaced(ptr, ptr->f_print + i);
 	return (len);
 }

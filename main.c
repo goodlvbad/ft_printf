@@ -6,7 +6,7 @@
 /*   By: oearlene <oearlene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 14:00:19 by oearlene          #+#    #+#             */
-/*   Updated: 2020/09/18 19:45:12 by oearlene         ###   ########.fr       */
+/*   Updated: 2020/09/18 20:46:00 by oearlene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,16 +198,20 @@ int		main(void)
 	printf("%d\n", r);
 	r = printf("%-7.0s\n", "46");
 	printf("%d\n\n", r);
+*/
+	//printf("\t//	FOR_U\n");
 
-	printf("\t//	FOR_U\n");
-	r = ft_printf("%.0u\n", 0);
+/*	r = ft_printf("%.0u\n", 0);
 	printf("%u\n", r);
 	r = printf("%.0u\n", 0);
 	printf("%u\n", r);
+
+
 	r = ft_printf("%05.*u", -1, 40);
 	printf("\n%u\n", r);
 	r = printf("%05.*u", -1, 40);
 	printf("\n%u\n", r);
+
 	r = ft_printf("%05.*u", 1, 41);
 	printf("\n%u\n", r);
 	r = printf("%05.*u", 1, 41);
@@ -260,10 +264,12 @@ int		main(void)
 	printf("\n%d\n", r);
 	r = printf("%05d", 43);
 	printf("\n%d\n", r);
-	r = ft_printf("%-5.2d", -3);
+
+	r = ft_printf("%05d", -3);
 	printf("\n%d\n", r);
-	r = printf("%-5.2d", -3);
+	r = printf("%05d", -3);
 	printf("\n%d\n", r);
+
 	r = ft_printf("%-5.7d", -3);
 	printf("\n%d\n", r);
 	r = printf("%-5.7d", -3);
@@ -399,28 +405,33 @@ int		main(void)
 	printf("\n%d\n", r);
 	r = printf("%X", 12);
 	printf("\n%d\n", r);
-	*/
+
 	r = ft_printf("%-8.*X", 3, 12);
 	printf("\n%d\n", r);
 	r = printf("%-8.*X", 3, 12);
 	printf("\n%d\n", r);
-	/*
+
 	r = ft_printf("%-8.*X", -3, 12);
 	printf("\n%d\n", r);
 	r = printf("%-8.*X", -3, 12);
 	printf("\n%d\n", r);
+
 	r = ft_printf("%8.*X", -3, 12);
 	printf("\n%d\n", r);
 	r = printf("%8.*X", -3, 12);
 	printf("\n%d\n", r);
+
 	r = ft_printf("%X", -1);
 	printf("\n%d\n", r);
 	r = printf("%X", -1);
 	printf("\n%d\n", r);
+
+
 	r = ft_printf("%-8.*X", 0, 13);
 	printf("\n%d\n", r);
 	r = printf("%-8.*X", 0, 13);
 	printf("\n%d\n", r);
+
 	r = ft_printf("%10X", 12);
 	printf("\n%d\n", r);
 	r = printf("%10X", 12);
