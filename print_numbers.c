@@ -6,43 +6,11 @@
 /*   By: oearlene <oearlene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/12 19:06:12 by oearlene          #+#    #+#             */
-/*   Updated: 2020/09/18 20:43:35 by oearlene         ###   ########.fr       */
+/*   Updated: 2020/09/18 22:10:38 by oearlene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-int		print_spacing(int len, int min, char c)
-{
-	int i;
-
-	i = 0;
-	while (min > len)
-	{
-		ft_putchar(c);
-		min--;
-		i++;
-	}
-	return (i);
-}
-
-int		print_num_spaced(t_data *ptr, char *str)
-{
-	int len;
-
-	len = ft_strlen(str);
-	if (ptr->flags->minus)
-	{
-		ft_putstr(str);
-		len += print_spacing(len, (int)ptr->conv->min_width, ' ');
-		return (len);
-	}
-	if (ptr->flags->zero)
-		len += print_spacing(len, (int)ptr->conv->min_width, '0');
-	len += print_spacing(len, (int)ptr->conv->min_width, ' ');
-	ft_putstr(str);
-	return (len);
-}
 
 int		print_u(t_data *ptr, unsigned long long n)
 {
@@ -58,7 +26,7 @@ int		print_u(t_data *ptr, unsigned long long n)
 		ptr->flags->zero = 0;
 	while (ptr->conv->precision > 99 - i)
 		ptr->f_print[--i] = '0';
-	len += print_num_spaced(ptr, ptr->f_print + i);
+	len += print(ptr, ptr->f_print + i, 0);
 	return (len);
 }
 
@@ -84,10 +52,9 @@ int		print_d(t_data *ptr, long long nb)
 	}
 	else if (ptr->conv->sign)
 		ptr->f_print[--i] = ptr->conv->sign;
-	len += print_num_spaced(ptr, ptr->f_print + i);
+	len += print(ptr, ptr->f_print + i, 0);
 	return (len);
 }
-
 
 int			print_o(t_data *ptr, unsigned long long n)
 {
@@ -104,7 +71,7 @@ int			print_o(t_data *ptr, unsigned long long n)
 		ptr->flags->zero = 0;
 	while (ptr->conv->precision > 99 - i)
 		ptr->f_print[--i] = '0';
-	len = print_num_spaced(ptr, ptr->f_print + i);
+	len = print(ptr, ptr->f_print + i, 0);
 	return (len);
 }
 
@@ -138,7 +105,7 @@ int			print_x(t_data *ptr,unsigned long long n)
 		ptr->f_print[--i] = 'x';
 		ptr->f_print[--i] = '0';
 	}
-	len = print_num_spaced(ptr, ptr->f_print + i);
+	len = print(ptr, ptr->f_print + i, 0);
 	return (len);
 }
 
@@ -175,6 +142,6 @@ int			print_x_caps(t_data *ptr,unsigned long long n)
 		ptr->f_print[--i] = 'X';
 		ptr->f_print[--i] = '0';
 	}
-	len += print_num_spaced(ptr, ptr->f_print + i);
+	len += print(ptr, ptr->f_print + i, 0);
 	return (len);
 }

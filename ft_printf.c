@@ -6,7 +6,7 @@
 /*   By: oearlene <oearlene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/12 13:19:15 by oearlene          #+#    #+#             */
-/*   Updated: 2020/09/14 16:23:51 by oearlene         ###   ########.fr       */
+/*   Updated: 2020/09/18 20:56:45 by oearlene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,29 +34,18 @@ t_data	*initialize(t_data *ptr)
 	return (ptr);
 }
 
-
-void		next_parser(t_data *ptr, va_list arg)
-{
-	ptr->i++;
-	parse_conversion(ptr, arg);
-// add '%%'
-// need to be done
-
-	if (ft_strchr("idouxX", ptr->conv->type))
-		print_nbr_conv(ptr, arg);
-	//else
-		//print_str_conv(ptr, arg);
-}
-
-
-
 void		parser(t_data *ptr, va_list arg)
 {
 	while (ptr->f_copy[ptr->i] != '\0')
 	{
 		if (ptr->f_copy[ptr->i] == '%')
 		{
-			next_parser(ptr,arg);
+			ptr->i++;
+			parse_conversion(ptr, arg);
+			if (ft_strchr("idouxX", ptr->conv->type))
+				print_nbr_conv(ptr, arg);
+			else
+				print_str_conv(ptr, arg);
 		}
 		else
 		{
@@ -66,8 +55,6 @@ void		parser(t_data *ptr, va_list arg)
 		ptr->i++;
 	}
 }
-
-
 
 int		ft_printf(const char *format, ...)
 {

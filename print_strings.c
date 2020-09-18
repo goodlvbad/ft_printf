@@ -6,63 +6,43 @@
 /*   By: oearlene <oearlene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/12 23:10:12 by oearlene          #+#    #+#             */
-/*   Updated: 2020/09/12 23:23:15 by oearlene         ###   ########.fr       */
+/*   Updated: 2020/09/18 22:21:21 by oearlene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-/*
-static void		print_chars(t_conversion *conv, char *str, int size)
+int			print_char(t_data *ptr, char c)
 {
-	if (conv->prec_set && conv->type == 's')
-		size = (size < conv->precision ? size : conv->precision);
-	if (conv->flags->minus)
-	{
-		tally_print(str, size);
-		print_spacing(size, conv->min_width, ' ');
-		return ;
-	}
-	if (conv->flags->zero)
-		print_spacing(size, conv->min_width, '0');
-	else
-		print_spacing(size, conv->min_width, ' ');
-	tally_print(str, size);
+	int len;
+
+	len = print(ptr, &c, 0);
+	return (len);
 }
 
-void			print_char(t_conversion *conv, char c)
-{
-	print_chars(conv, &c, 1);
-}
-
-void			print_str(t_conversion *conv, char *str)
+int			print_str(t_data *ptr, char *str)
 {
 	if (!str)
 		str = "(null)";
-	print_chars(conv, str, ft_strlen(str));
-}
+	int len;
 
-
-int		print_str_conv(t_data *ptr, va_list arg)
-{
-	if (ptr->length == L)
+	len = ft_strlen(str);
+	if (ptr->conv->prec_set)
 	{
-		if (ptr->conv->type == 'c')
-			// print_wchar(conv, va_arg(ap, wint_t));
-		else if (ptr->conv->type == 's')
-			// print_wstr(conv, va_arg(ap, wchar_t*));
-		else
-			print_char(conv, conv->type);
+		if (len > ptr->conv->precision)
+			len = print(ptr, str, ptr->conv->precision);
 	}
 	else
-	{
-		if (conv->type == 'c')
-			print_char(conv, va_arg(ap, int));
-		else if (conv->type == 's')
-			print_str(conv, va_arg(ap, char*));
-		else
-			print_char(conv, conv->type);
-	}
-	return ();
+		len = print(ptr, str, 0);
+	return (len);
 }
-*/
+
+void		print_str_conv(t_data *ptr, va_list arg)
+{
+	if (ptr->conv->type == 'c')
+		ptr->len += print_char(ptr, va_arg(arg, int));
+	else if (ptr->conv->type == 's')
+		ptr->len += print_str(ptr, va_arg(arg, char*));
+	else
+		ptr->len += print_char(ptr, ptr->conv->type);
+}

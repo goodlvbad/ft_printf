@@ -6,7 +6,7 @@
 /*   By: oearlene <oearlene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 14:00:19 by oearlene          #+#    #+#             */
-/*   Updated: 2020/09/18 20:46:00 by oearlene         ###   ########.fr       */
+/*   Updated: 2020/09/18 20:53:58 by oearlene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,12 +142,13 @@ int		main(void)
 	printf("%d\n", r);
 	r = printf("%-4.c\n", 'e');
 	printf("%d\n\n", r);
-
-	printf("\t//	FOR_%%\n");
+*/
+	//printf("\t//	FOR_%%\n");
 	r = ft_printf("%5%\n");
 	printf("%d\n", r);
 	r = printf("%5%\n");
 	printf("%d\n", r);
+	/*
 	r = ft_printf("%-5%\n");
 	printf("%d\n", r);
 	r = printf("%-5%\n");
