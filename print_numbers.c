@@ -6,7 +6,7 @@
 /*   By: oearlene <oearlene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/12 19:06:12 by oearlene          #+#    #+#             */
-/*   Updated: 2020/09/14 15:18:40 by oearlene         ###   ########.fr       */
+/*   Updated: 2020/09/18 19:17:23 by oearlene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,11 @@ int		print_num_spaced(t_data *ptr, char *str)
 
 	len = ft_strlen(str);
 	if (ptr->flags->minus)
+	{
 		ft_putstr(str);
+		len += print_spacing(len, (int)ptr->conv->min_width, ' ');
+		return (len);
+	}
 	if (ptr->flags->zero)
 		len += print_spacing(len, (int)ptr->conv->min_width, '0');
 	len += print_spacing(len, (int)ptr->conv->min_width, ' ');
@@ -51,7 +55,7 @@ int		print_u(t_data *ptr, unsigned long long n)
 		ptr->f_print[--i] = '0' + (n % 10);
 	while ((n /= 10) > 0)
 		ptr->f_print[--i] = '0' + (n % 10);
-	if (ptr->conv->precision > 99 - i)
+	if (ptr->conv->prec_set)
 		ptr->flags->zero = 0;
 	while (ptr->conv->precision > 99 - i)
 		ptr->f_print[--i] = '0';
@@ -70,7 +74,7 @@ int		print_d(t_data *ptr, long long nb)
 		ptr->f_print[--i] = '0' + (nb % 10);
 	while ((nb /= 10) > 0)
 		ptr->f_print[--i] = '0' + (nb % 10);
-	if (ptr->conv->precision > 99 - i)
+	if (ptr->conv->prec_set)
 		ptr->flags->zero = 0;
 	while (ptr->conv->precision > 99 - i)
 		ptr->f_print[--i] = '0';
@@ -99,6 +103,8 @@ int			print_o(t_data *ptr, unsigned long long n)
 		ptr->f_print[--i] = '0' + (n % 8);
 	if (ptr->flags->hash && ptr->f_print[i] != '0')
 		ptr->f_print[--i] = '0';
+	if (ptr->conv->prec_set)
+		ptr->flags->zero = 0;
 	while (ptr->conv->precision > 99 - i)
 		ptr->f_print[--i] = '0';
 	len = print_num_spaced(ptr, ptr->f_print + i);
@@ -125,6 +131,8 @@ int			print_x(t_data *ptr,unsigned long long n)
 		else
 			ptr->f_print[--i] = '0' + (n % 16) + 39;
 	}
+	if (ptr->conv->prec_set)
+		ptr->flags->zero = 0;
 	while (ptr->conv->precision > 99 - i)
 		ptr->f_print[--i] = '0';
 	if (ptr->flags->zero && ((ptr->flags->hash && i < 99 && ptr->f_print[98] != '0')
@@ -143,38 +151,38 @@ int			print_x(t_data *ptr,unsigned long long n)
 int			print_x_caps(t_data *ptr,unsigned long long n)
 {
 	int		len;
-	char	str[100];
 	int		i;
 
 	i = 99;
-	str[i] = '\0';
 	if (!ptr->conv->prec_set)
 	{
 		if ((n % 16) <= 9)
-			str[--i] = '0' + (n % 16);
+			ptr->f_print[--i] = '0' + (n % 16);
 		else
-			str[--i] = '0' + (n % 16) + 7;
+			ptr->f_print[--i] = '0' + (n % 16) + 7;
 	}
 	while ((n /= 16) > 0)
 	{
 		if ((n % 16) <= 9)
-			str[--i] = '0' + (n % 16);
+			ptr->f_print[--i] = '0' + (n % 16);
 		else
-			str[--i] = '0' + (n % 16) + 7;
+			ptr->f_print[--i] = '0' + (n % 16) + 7;
 	}
+	if (ptr->conv->prec_set)
+		ptr->flags->zero = 0;
 	while (ptr->conv->precision > 99 - i)
-		str[--i] = '0';
-	if (ptr->flags->zero && ptr->flags->hash && str[i] != '0')
+		ptr->f_print[--i] = '0';
+	if (ptr->flags->zero && ptr->flags->hash && ptr->f_print[i] != '0')
 	{
 		len = 2;
 		ft_putstr("0X");
 		ptr->conv->min_width -= 2;
 	}
-	else if (ptr->flags->hash && str[i] != '0')
+	else if (ptr->flags->hash && ptr->f_print[i] != '0')
 	{
-		str[--i] = 'X';
-		str[--i] = '0';
+		ptr->f_print[--i] = 'X';
+		ptr->f_print[--i] = '0';
 	}
-	len = print_num_spaced(ptr, str + i);
+	len = print_num_spaced(ptr, ptr->f_print + i);
 	return (len);
 }

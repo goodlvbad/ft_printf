@@ -6,7 +6,7 @@
 /*   By: oearlene <oearlene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 14:00:19 by oearlene          #+#    #+#             */
-/*   Updated: 2020/09/14 17:22:31 by oearlene         ###   ########.fr       */
+/*   Updated: 2020/09/18 19:45:12 by oearlene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int		main(void)
  */
 
 	int r;
-	int j;
 
 	/*
 	char	*s1 = "loljvdsnlkjvns dnvlsk jfwk;qdwdkf";
@@ -244,23 +243,17 @@ int		main(void)
  */
 
 	//printf("\t//	FOR_DI\n");
-	/*
+/*
 	r = ft_printf("%05.*d", -1, 40);
 	printf("\n%d\n", r);
 	r = printf("%05.*d", -1, 40);
 	printf("\n%d\n", r);
-	r = ft_printf("%05.*d", 1, 41);
+	r = ft_printf("%.*d", 1, 41);
 	printf("\n%d\n", r);
-	r = printf("%05.*d", 1, 41);
+	r = printf("%.*d", 1, 41);
 	printf("\n%d\n", r);
-	 */
-	ft_printf("my printf :%05.d", 42);
-
-//	printf("\ntotal : %d\n", r);
-
-	printf("\nprintf :%05.d", 42);
-
-	/*
+	r = ft_printf("%05.d", 42);
+	printf("\n%d\n", r);
 	r = printf("%05.d", 42);
 	printf("\n%d\n", r);
 	r = ft_printf("%05d", 43);
@@ -275,66 +268,92 @@ int		main(void)
 	printf("\n%d\n", r);
 	r = printf("%-5.7d", -3);
 	printf("\n%d\n", r);
-	r = ft_printf("%-5d", -3);
+ 	r = ft_printf("%-5d", -3);
 	printf("\n%d\n", r);
 	r = printf("%-5d", -3);
 	printf("\n%d\n", r);
+
+
 	r = ft_printf("%-5.3d", -345);
 	printf("\n%d\n", r);
 	r = printf("%-5.3d", -345);
 	printf("\n%d\n", r);
+
+
 	r = ft_printf("%5.2d", -3);
 	printf("\n%d\n", r);
 	r = printf("%5.2d", -3);
 	printf("\n%d\n", r);
+
 	r = ft_printf("%5.7d", -3);
 	printf("\n%d\n", r);
 	r = printf("%5.7d", -3);
 	printf("\n%d\n", r);
+
+
 	r = ft_printf("%5d", -3);
 	printf("\n%d\n", r);
 	r = printf("%5d", -3);
 	printf("\n%d\n", r);
+
 	r = ft_printf("%5.3i", -345);
 	printf("\n%d\n", r);
 	r = printf("%5.3i", -345);
 	printf("\n%d\n", r);
+
+
 	r = ft_printf("%7d", -1234);
 	printf("\n%d\n", r);
 	r = printf("%7d", -1234);
 	printf("\n%d\n", r);
+
+
 	r = ft_printf("%-.4d", -1234);
 	printf("\n%d\n", r);
 	r = printf("%-.4d", -1234);
 	printf("\n%d\n", r);
+
 	r = ft_printf("%07d", 1234);
 	printf("\n%d\n", r);
 	r = printf("%07d", 1234);
 	printf("\n%d\n", r);
+
 	r = ft_printf("%-7d", 1234);
 	printf("\n%d\n", r);
 	r = printf("%-7d", 1234);
 	printf("\n%d\n", r);
+
 	r = ft_printf("%7.d", 1234);
 	printf("\n%d\n", r);
 	r = printf("%7.d", 1234);
 	printf("\n%d\n", r);
+
+
 	r = ft_printf("%-7.d", 1234);
 	printf("\n%d\n", r);
 	r = printf("%-7.d", 1234);
 	printf("\n%d\n", r);
+
 	r = ft_printf("%.3d", 1234);
 	printf("\n%d\n", r);
 	r = printf("%.3d", 1234);
 	printf("\n%d\n", r);
+
 	r = ft_printf("%-.3d", 1234);
 	printf("\n%d\n", r);
 	r = printf("%-.3d", 1234);
 	printf("\n%d\n", r);
+
 	r = ft_printf("%0.3d", 1234);
 	printf("\n%d\n", r);
 	r = printf("%0.3d", 1234);
 	printf("\n%d\n", r);
+	*/
+
+	//ft_printf("%.d", 1234);
+	//ft_putchar('\n');
+	//ft_printf("%-.d",1234);
+	/*
 	r = ft_printf("%.d", 1234);
 	printf("\n%d\n", r);
 	r = printf("%.d", 1234);
@@ -371,17 +390,21 @@ int		main(void)
 	printf("\n%d\n", r);
 	r = printf("%07.4d", -48);
 	printf("\n%d\n\n", r);
-	 */
-	/*
-	printf("\t//	FOR_Xx\n");
+*/
+
+
+	//printf("\t//	FOR_Xx\n");
+/*
 	r = ft_printf("%X", 12);
 	printf("\n%d\n", r);
 	r = printf("%X", 12);
 	printf("\n%d\n", r);
+	*/
 	r = ft_printf("%-8.*X", 3, 12);
 	printf("\n%d\n", r);
 	r = printf("%-8.*X", 3, 12);
 	printf("\n%d\n", r);
+	/*
 	r = ft_printf("%-8.*X", -3, 12);
 	printf("\n%d\n", r);
 	r = printf("%-8.*X", -3, 12);

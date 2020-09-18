@@ -6,7 +6,7 @@
 /*   By: oearlene <oearlene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/12 13:19:54 by oearlene          #+#    #+#             */
-/*   Updated: 2020/09/14 17:20:00 by oearlene         ###   ########.fr       */
+/*   Updated: 2020/09/18 18:07:28 by oearlene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ typedef enum			e_length
 typedef struct			s_conversion
 {
 	char				sep;
-	long int			min_width;
-	long int			precision;
+	int			min_width;
+	int			precision;
 	int					prec_set; // is precision set or no
 	char				type;
 	char				sign;
@@ -60,20 +60,6 @@ typedef struct		s_data
 	t_length		length;
 	t_flags			*flags;
 
-
-	/*
-	int 		counter;
-	char 		*flags;
-	char 		*type; // cs p diouxX %
-	char		c;
-	int 		true;
-
-	long int	field_width; // 0-9
-	long int	precision; // '.#'
-
-	int 		length; // ll l hh h
-
-*/
 	// need to be done f F (l L)
 
 }				t_data;
@@ -87,9 +73,9 @@ t_data				*initialize(t_data *ptr);
 
 void				parser(t_data *ptr, va_list arg);
 void				next_parser(t_data *ptr, va_list arg);
-void				parse_conversion(t_data *ptr);
+void				parse_conversion(t_data *ptr, va_list arg);
 void				parse_length(t_data *ptr);
-void				parse_precision(t_data *ptr);
+void				parse_precision(t_data *ptr, va_list arg);
 void				parse_min_width(t_data *ptr);
 void				parse_flags(t_data *ptr);
 
@@ -106,6 +92,9 @@ int					print_d(t_data *ptr, long long num);
 int					print_o(t_data *ptr, unsigned long long n);
 int					print_x(t_data *ptr,unsigned long long n);
 int					print_x_caps(t_data *ptr,unsigned long long n);
+
+
+
 
 
 #endif //FT_PRINTF_H

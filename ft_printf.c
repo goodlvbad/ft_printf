@@ -38,7 +38,7 @@ t_data	*initialize(t_data *ptr)
 void		next_parser(t_data *ptr, va_list arg)
 {
 	ptr->i++;
-	parse_conversion(ptr);
+	parse_conversion(ptr, arg);
 // add '%%'
 // need to be done
 

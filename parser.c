@@ -6,7 +6,7 @@
 /*   By: oearlene <oearlene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/12 13:19:45 by oearlene          #+#    #+#             */
-/*   Updated: 2020/09/14 16:29:40 by oearlene         ###   ########.fr       */
+/*   Updated: 2020/09/18 18:24:59 by oearlene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,17 +49,22 @@ void	parse_min_width(t_data *ptr)
 	//	printf_error("Invalid format. (After Min Width)");
 }
 
-void	parse_precision(t_data *ptr)
+void	parse_precision(t_data *ptr, va_list arg)
 {
 	char *str;
 
 	if (ptr->f_copy[ptr->i] != '.')
 		return ;
 	ptr->i++;
-	str = &(ptr->f_copy[ptr->i]);
-	// add '.*'
-	ptr->conv->precision = ft_atoi(str);
 	ptr->conv->prec_set = 1;
+	if (ptr->f_copy[ptr->i] == '*')
+	{
+		ptr->conv->precision = va_arg(arg, int);
+		ptr->i++;
+		return ;
+	}
+	str = &(ptr->f_copy[ptr->i]);
+	ptr->conv->precision = ft_atoi(str);
 	while (ft_isdigit(ptr->f_copy[ptr->i]))
 		ptr->i++;
 //	if (!ptr->f_print)
@@ -89,7 +94,7 @@ void	parse_length(t_data *ptr)
 	ptr->i++;
 }
 
-void	parse_conversion(t_data *ptr)
+void	parse_conversion(t_data *ptr, va_list arg)
 {
 	parse_flags(ptr);
 	if (ft_strchr(",;:_", ptr->f_copy[ptr->i]))
@@ -100,7 +105,9 @@ void	parse_conversion(t_data *ptr)
 //	if (!ptr->f_print)
 //		printf_error("Invalid format. (After Separator)");
 	parse_min_width(ptr);
-	parse_precision(ptr);
+	parse_precision(ptr, arg);
+	if (ptr->conv->precision < 0)
+		ptr->conv->prec_set = 0;
 	parse_length(ptr);
 //	if (!ptr->f_print)
 //		printf_error("Invalid format. (After Length)");
