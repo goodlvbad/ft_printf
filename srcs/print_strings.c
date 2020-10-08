@@ -6,7 +6,7 @@
 /*   By: oearlene <oearlene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/12 23:10:12 by oearlene          #+#    #+#             */
-/*   Updated: 2020/09/18 22:21:21 by oearlene         ###   ########.fr       */
+/*   Updated: 2020/10/08 19:57:51 by oearlene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,10 @@
 int			print_char(t_data *ptr, char c)
 {
 	int len;
+	char s;
 
-	len = print(ptr, &c, 0);
+	s = c;
+	len = print(ptr, &s, 0);
 	return (len);
 }
 

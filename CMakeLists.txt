@@ -4,6 +4,8 @@ project(printf)
 set(CMAKE_CXX_STANDARD 14)
 
 include_directories(libft)
+include_directories(srcs)
+include_directories(includes)
 
 add_executable(ft_printf
         libft/ft_atoi.c
@@ -66,11 +68,11 @@ add_executable(ft_printf
         libft/ft_toupper.c
         libft/libft.h
 
-        ft_printf.c
-        ft_printf.h
-        parser.c
-        print_numbers.c
-        print_nbr_conversions.c
+        srcs/ft_printf.c
+        includes/ft_printf.h
+        srcs/parser.c
+        srcs/print_numbers.c
+        srcs/print_nbr_conversions.c
         main.c
-        print_strings.c
-        print.c)
+        srcs/print_strings.c
+        srcs/print.c)

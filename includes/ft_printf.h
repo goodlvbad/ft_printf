@@ -6,7 +6,7 @@
 /*   By: oearlene <oearlene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/12 13:19:54 by oearlene          #+#    #+#             */
-/*   Updated: 2020/09/18 22:10:38 by oearlene         ###   ########.fr       */
+/*   Updated: 2020/10/08 20:56:16 by oearlene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,13 @@
 # define FT_PRINTF_H
 
 # include <stdarg.h>
-# include <ctype.h>
-
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
 
 # include "libft.h"
 
+# define N 100
 
 typedef struct		s_flags
 {
@@ -37,25 +36,35 @@ typedef enum		e_length
 	NONE, HH, H, LL, L
 }					t_length;
 
+/*
+**	prec_set - flag shows if precision was set or wasn't
+*/
+
 typedef struct		s_conversion
 {
 	char			sep;
 	int				min_width;
 	int				precision;
-	int				prec_set; // is precision set or no
+	int				prec_set;
 	char			type;
 	char			sign;
 }					t_conversion;
 
+/*
+**	format	-	string
+**	f_copy	-	copy of string
+**	f_print	-	string that print after '%'
+**	len		-	length of string
+**	i		-	counter of reading string
+*/
 
 typedef struct		s_data
 {
-	const char		*format; // string
-	char			*f_copy; // copy of string
-	char			f_print[100]; // copy of string that print after '%'
-	int				len; // length of string
-	size_t			i; // counter of reading string
-
+	const char		*format;
+	char			*f_copy;
+	char			f_print[N];
+	int				len;
+	size_t			i;
 	t_conversion	*conv;
 	t_length		length;
 	t_flags			*flags;
@@ -99,4 +108,4 @@ int					print_str(t_data *ptr, char *str);
 int					print_char(t_data *ptr, char c);
 
 
-#endif //FT_PRINTF_H
+#endif

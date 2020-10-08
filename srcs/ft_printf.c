@@ -6,7 +6,7 @@
 /*   By: oearlene <oearlene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/12 13:19:15 by oearlene          #+#    #+#             */
-/*   Updated: 2020/09/18 20:56:45 by oearlene         ###   ########.fr       */
+/*   Updated: 2020/10/08 20:35:44 by oearlene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_data	*initialize(t_data *ptr)
 	ptr->i = 0;
 	ptr->length = NONE;
 	ptr->f_copy = (char *)ptr->format;
-	ft_bzero(ptr->f_print, 100);
+	ft_bzero(ptr->f_print, N);
 	ptr->flags->hash = 0;
 	ptr->flags->zero = 0;
 	ptr->flags->minus = 0;
