@@ -6,7 +6,7 @@
 /*   By: oearlene <oearlene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/12 13:19:45 by oearlene          #+#    #+#             */
-/*   Updated: 2020/10/08 20:35:44 by oearlene         ###   ########.fr       */
+/*   Updated: 2020/10/08 20:53:07 by oearlene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,15 @@ void	parse_flags(t_data *ptr)
 	while (ft_strchr("#0-+ ", ptr->f_copy[ptr->i]))
 	{
 		if (ptr->f_copy[ptr->i] == '#')
-			ptr->flags->hash = 1;
+			ptr->hash = 1;
 		else if (ptr->f_copy[ptr->i] == '0')
-			ptr->flags->zero = 1;
+			ptr->zero = 1;
 		else if (ptr->f_copy[ptr->i] == '-')
-			ptr->flags->minus = 1;
+			ptr->minus = 1;
 		else if (ptr->f_copy[ptr->i] == '+')
-			ptr->flags->plus = 1;
+			ptr->plus = 1;
 		else if (ptr->f_copy[ptr->i] == ' ')
-			ptr->flags->space = 1;
+			ptr->space = 1;
 		else if (ptr->f_copy[ptr->i] == '\0')
 			break ;
 	//	else
@@ -42,7 +42,7 @@ void	parse_min_width(t_data *ptr)
 
 	str = &(ptr->f_copy[ptr->i]);
 	// add '*.'
-	ptr->conv->min_width = ft_atoi(str);
+	ptr->min_width = ft_atoi(str);
 	while (ft_isdigit(ptr->f_copy[ptr->i]))
 		ptr->i++;
 //	if (!ptr->f_print)
@@ -56,15 +56,15 @@ void	parse_precision(t_data *ptr, va_list arg)
 	if (ptr->f_copy[ptr->i] != '.')
 		return ;
 	ptr->i++;
-	ptr->conv->prec_set = 1;
+	ptr->prec_set = 1;
 	if (ptr->f_copy[ptr->i] == '*')
 	{
-		ptr->conv->precision = va_arg(arg, int);
+		ptr->precision = va_arg(arg, int);
 		ptr->i++;
 		return ;
 	}
 	str = &(ptr->f_copy[ptr->i]);
-	ptr->conv->precision = ft_atoi(str);
+	ptr->precision = ft_atoi(str);
 	while (ft_isdigit(ptr->f_copy[ptr->i]))
 		ptr->i++;
 //	if (!ptr->f_print)
@@ -99,17 +99,17 @@ void	parse_conversion(t_data *ptr, va_list arg)
 	parse_flags(ptr);
 	if (ft_strchr(",;:_", ptr->f_copy[ptr->i]))
 	{
-		ptr->conv->sep = ptr->f_copy[ptr->i];
+		ptr->sep = ptr->f_copy[ptr->i];
 		ptr->i++;
 	}
 //	if (!ptr->f_print)
 //		printf_error("Invalid format. (After Separator)");
 	parse_min_width(ptr);
 	parse_precision(ptr, arg);
-	if (ptr->conv->precision < 0)
-		ptr->conv->prec_set = 0;
+	if (ptr->precision < 0)
+		ptr->prec_set = 0;
 	parse_length(ptr);
 //	if (!ptr->f_print)
 //		printf_error("Invalid format. (After Length)");
-	ptr->conv->type = ptr->f_copy[ptr->i];
+	ptr->type = ptr->f_copy[ptr->i];
 }

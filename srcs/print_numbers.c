@@ -22,9 +22,9 @@ int		print_u(t_data *ptr, unsigned long long n)
 	ptr->f_print[--i] = '0' + (n % 10);
 	while ((n /= 10) > 0)
 		ptr->f_print[--i] = '0' + (n % 10);
-	if (ptr->conv->prec_set)
-		ptr->flags->zero = 0;
-	while (ptr->conv->precision > 99 - i)
+	if (ptr->prec_set)
+		ptr->zero = 0;
+	while (ptr->precision > 99 - i)
 		ptr->f_print[--i] = '0';
 	len += print(ptr, ptr->f_print + i, 0);
 	return (len);
@@ -40,18 +40,18 @@ int		print_d(t_data *ptr, long long nb)
 	ptr->f_print[--i] = '0' + (nb % 10);
 	while ((nb /= 10) > 0)
 		ptr->f_print[--i] = '0' + (nb % 10);
-	if (ptr->conv->prec_set)
-		ptr->flags->zero = 0;
-	while (ptr->conv->precision > 99 - i)
+	if (ptr->prec_set)
+		ptr->zero = 0;
+	while (ptr->precision > 99 - i)
 		ptr->f_print[--i] = '0';
-	if (ptr->flags->zero && ptr->conv->sign)
+	if (ptr->zero && ptr->sign)
 	{
-		write(1,&(ptr->conv->sign),1);
+		write(1,&(ptr->sign),1);
 		len = 1;
-		ptr->conv->min_width--;
+		ptr->min_width--;
 	}
-	else if (ptr->conv->sign)
-		ptr->f_print[--i] = ptr->conv->sign;
+	else if (ptr->sign)
+		ptr->f_print[--i] = ptr->sign;
 	len += print(ptr, ptr->f_print + i, 0);
 	return (len);
 }
@@ -65,11 +65,11 @@ int			print_o(t_data *ptr, unsigned long long n)
 	ptr->f_print[--i] = '0' + (n % 8);
 	while ((n /= 8) > 0)
 		ptr->f_print[--i] = '0' + (n % 8);
-	if (ptr->flags->hash && ptr->f_print[i] != '0')
+	if (ptr->hash && ptr->f_print[i] != '0')
 		ptr->f_print[--i] = '0';
-	if (ptr->conv->prec_set)
-		ptr->flags->zero = 0;
-	while (ptr->conv->precision > 99 - i)
+	if (ptr->prec_set)
+		ptr->zero = 0;
+	while (ptr->precision > 99 - i)
 		ptr->f_print[--i] = '0';
 	len = print(ptr, ptr->f_print + i, 0);
 	return (len);
@@ -92,15 +92,15 @@ int			print_x(t_data *ptr,unsigned long long n)
 		else
 			ptr->f_print[--i] = '0' + (n % 16) + 39;
 	}
-	if (ptr->conv->prec_set)
-		ptr->flags->zero = 0;
-	while (ptr->conv->precision > 99 - i)
+	if (ptr->prec_set)
+		ptr->zero = 0;
+	while (ptr->precision > 99 - i)
 		ptr->f_print[--i] = '0';
-	if (ptr->flags->zero && ((ptr->flags->hash && i < 99 && ptr->f_print[98] != '0')
-							  || ptr->conv->type == 'p'))
-		ptr->conv->min_width -= 2;
-	else if ((ptr->flags->hash && i < 99 && ptr->f_print[98] != '0')
-			 || ptr->conv->type == 'p')
+	if (ptr->zero && ((ptr->hash && i < 99 && ptr->f_print[98] != '0')
+							  || ptr->type == 'p'))
+		ptr->min_width -= 2;
+	else if ((ptr->hash && i < 99 && ptr->f_print[98] != '0')
+			 || ptr->type == 'p')
 	{
 		ptr->f_print[--i] = 'x';
 		ptr->f_print[--i] = '0';
@@ -127,17 +127,17 @@ int			print_x_caps(t_data *ptr,unsigned long long n)
 		else
 			ptr->f_print[--i] = '0' + (n % 16) + 7;
 	}
-	if (ptr->conv->prec_set)
-		ptr->flags->zero = 0;
-	while (ptr->conv->precision > 99 - i)
+	if (ptr->prec_set)
+		ptr->zero = 0;
+	while (ptr->precision > 99 - i)
 		ptr->f_print[--i] = '0';
-	if (ptr->flags->zero && ptr->flags->hash && ptr->f_print[i] != '0')
+	if (ptr->zero && ptr->hash && ptr->f_print[i] != '0')
 	{
 		len = 2;
 		ft_putstr("0X");
-		ptr->conv->min_width -= 2;
+		ptr->min_width -= 2;
 	}
-	else if (ptr->flags->hash && ptr->f_print[i] != '0')
+	else if (ptr->hash && ptr->f_print[i] != '0')
 	{
 		ptr->f_print[--i] = 'X';
 		ptr->f_print[--i] = '0';

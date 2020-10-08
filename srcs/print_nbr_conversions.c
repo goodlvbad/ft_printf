@@ -6,7 +6,7 @@
 /*   By: oearlene <oearlene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/12 23:15:09 by oearlene          #+#    #+#             */
-/*   Updated: 2020/10/08 20:35:44 by oearlene         ###   ########.fr       */
+/*   Updated: 2020/10/08 21:14:35 by oearlene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,14 @@ unsigned long long		get_conv_unsign(t_data *ptr, va_list arg)
 	return (va_arg(arg, unsigned int));
 }
 
-static void		check_if_alias(t_data *ptr)
+void		check_if_alias(t_data *ptr)
 {
-	if (ptr->conv->type == 'i')
-		ptr->conv->type = 'd';
-	else if (ptr->conv->type == 'p')
+	if (ptr->type == 'i')
+		ptr->type = 'd';
+	else if (ptr->type == 'p')
 	{
 		ptr->length = L;
-		ptr->flags->hash = 1;
+		ptr->hash = 1;
 	}
 }
 
@@ -55,25 +55,25 @@ void		print_nbr_conv(t_data *ptr, va_list arg)
 	long long nb;
 
 	check_if_alias(ptr);
-	if (ptr->conv->type == 'd')
+	if (ptr->type == 'd')
 	{
 		nb = get_conv_sign(ptr, arg);
 		if (nb < 0 && (nb *= -1))
-			ptr->conv->sign = '-';
-		else if (ptr->flags->plus)
-			ptr->conv->sign = '+';
-		else if (ptr->flags->space)
-			ptr->conv->sign = ' ';
+			ptr->sign = '-';
+		else if (ptr->plus)
+			ptr->sign = '+';
+		else if (ptr->space)
+			ptr->sign = ' ';
 		ptr->len += print_d(ptr, nb);
 	}
 	else
 		n = get_conv_unsign(ptr, arg);
-	if (ptr->conv->type == 'u')
+	if (ptr->type == 'u')
 		ptr->len += print_u(ptr, n);
-	else if (ptr->conv->type == 'o')
+	else if (ptr->type == 'o')
 		ptr->len += print_o(ptr, n);
-	else if (ft_strchr("xp", ptr->conv->type))
+	else if (ft_strchr("xp", ptr->type))
 		ptr->len += print_x(ptr, n);
-	else if (ptr->conv->type == 'X')
+	else if (ptr->type == 'X')
 		ptr->len += print_x_caps(ptr, n);
 }

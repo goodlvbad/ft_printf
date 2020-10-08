@@ -6,7 +6,7 @@
 /*   By: oearlene <oearlene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/12 13:19:54 by oearlene          #+#    #+#             */
-/*   Updated: 2020/10/08 20:56:16 by oearlene         ###   ########.fr       */
+/*   Updated: 2020/10/08 22:11:44 by oearlene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,52 +22,42 @@
 
 # define N 100
 
-typedef struct		s_flags
-{
-	int				hash;
-	int				zero;
-	int				minus;
-	int				plus;
-	int				space;
-}					t_flags;
-
 typedef enum		e_length
 {
 	NONE, HH, H, LL, L
 }					t_length;
 
 /*
-**	prec_set - flag shows if precision was set or wasn't
-*/
-
-typedef struct		s_conversion
-{
-	char			sep;
-	int				min_width;
-	int				precision;
-	int				prec_set;
-	char			type;
-	char			sign;
-}					t_conversion;
-
-/*
-**	format	-	string
-**	f_copy	-	copy of string
-**	f_print	-	string that print after '%'
-**	len		-	length of string
-**	i		-	counter of reading string
+**	format		-	string
+**	f_copy		-	copy of string
+**	f_print		-	string that print after '%'
+**	len			-	length of string
+**	i			-	counter of reading string
+**	prec_set	-	flag shows if precision was set or wasn't
 */
 
 typedef struct		s_data
 {
 	const char		*format;
 	char			*f_copy;
-	char			f_print[N];
+	char			*f_print;
 	int				len;
 	size_t			i;
-	t_conversion	*conv;
+
+	char			sep;
+	int				min_width;
+	int				precision;
+	int				prec_set;
+	char			type;
+	char			sign;
+
 	t_length		length;
-	t_flags			*flags;
+
+	int				hash;
+	int				zero;
+	int				minus;
+	int				plus;
+	int				space;
 
 	// need to be done f F (l L)
 
@@ -76,7 +66,8 @@ typedef struct		s_data
 
 int					ft_printf(const char *format, ...);
 
-t_data				*initialize(t_data *ptr);
+t_data				*initialize(const char *format);
+void				ft_free(t_data *ptr);
 
 void				parser(t_data *ptr, va_list arg);
 
@@ -89,7 +80,7 @@ void				parse_flags(t_data *ptr);
 
 void				print_nbr_conv(t_data *ptr, va_list arg);
 
-static void			check_if_alias(t_data *ptr);
+void				check_if_alias(t_data *ptr);
 unsigned long long	get_conv_unsign(t_data *ptr, va_list arg);
 long long			get_conv_sign(t_data *ptr, va_list arg);
 

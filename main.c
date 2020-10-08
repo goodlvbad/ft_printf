@@ -6,7 +6,7 @@
 /*   By: oearlene <oearlene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 14:00:19 by oearlene          #+#    #+#             */
-/*   Updated: 2020/10/08 20:35:44 by oearlene         ###   ########.fr       */
+/*   Updated: 2020/10/08 22:16:21 by oearlene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ int		main(void)
 {
 	int t;
 
-	t = ft_printf("%c", 'a');
+	t = ft_printf("%10c", 'a');
 	printf("\n%d\n", t);
-	t = printf("%c", 'a');
+	t = printf("%10c", 'a');
 	printf("\n%d\n", t);
 	return (0);
 }

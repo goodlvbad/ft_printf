@@ -6,7 +6,7 @@
 #    By: oearlene <oearlene@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/08 20:13:00 by oearlene          #+#    #+#              #
-#    Updated: 2020/10/08 20:33:14 by oearlene         ###   ########.fr        #
+#    Updated: 2020/10/08 21:17:28 by oearlene         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,8 @@ LFT_PATH = ./libft/
 SRC = $(addprefix $(SRC_PATH),$(SRC_NAME))
 OBJ = $(addprefix $(OBJ_PATH),$(OBJ_NAME))
 INC = $(addprefix -I,$(INC_PATH))
+LFT = $(addprefix -I,$(LFT_PATH))
+INC_H = $(addprefix $(INC_PATH),$(INC_NAME))
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 
@@ -28,7 +30,7 @@ INC_NAME = ft_printf.h
 SRC_NAME =  ft_printf.c \
             parser.c \
             print.c \
-            print_nb_conversions.c \
+            print_nbr_conversions.c \
             print_numbers.c \
             print_strings.c
 
@@ -39,19 +41,19 @@ FLAGS = -Wall -Wextra -Werror
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@make -C $(LFT_PATH)
-	@ar rc $(NAME) $(OBJ) $(INC_NAME)
+	make -C $(LFT_PATH)
+	ar rc $(NAME) $(OBJ) $(INC_H)
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c
-	@mkdir -p $(OBJ_PATH)
-	@gcc $(FLAGS) $(INC) -o $@ -c $<
+	mkdir -p $(OBJ_PATH)
+	gcc $(FLAGS) $(INC) $(LFT) -o $@ -c $<
 
 clean:
-	@make -C $(LFT_PATH) clean
-	@rm -rf $(OBJ_PATH)
+	make -C $(LFT_PATH) clean
+	rm -rf $(OBJ_PATH)
 
 fclean: clean
-	@make -C $(LFT_PATH) fclean
-	@rm -f $(NAME)
+	make -C $(LFT_PATH) fclean
+	rm -f $(NAME)
 
 re: fclean all

@@ -6,31 +6,44 @@
 /*   By: oearlene <oearlene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/12 13:19:15 by oearlene          #+#    #+#             */
-/*   Updated: 2020/10/08 20:35:44 by oearlene         ###   ########.fr       */
+/*   Updated: 2020/10/08 22:09:45 by oearlene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-
-t_data	*initialize(t_data *ptr)
+void 	ft_free(t_data *ptr)
 {
+	ptr->format = NULL;
+	ft_strdel(&(ptr->f_copy));
+	ft_strdel(&(ptr->f_print));
+	free(ptr);
+	ptr = NULL;
+}
+
+t_data	*initialize(const char *format)
+{
+	t_data *ptr;
+
+	if (!(ptr = (t_data*)malloc(sizeof(t_data))))
+		return (NULL);
+	ptr->format = format;
+	ptr->f_copy = ft_strdup(ptr->format);
 	ptr->len = 0;
 	ptr->i = 0;
 	ptr->length = NONE;
-	ptr->f_copy = (char *)ptr->format;
-	ft_bzero(ptr->f_print, N);
-	ptr->flags->hash = 0;
-	ptr->flags->zero = 0;
-	ptr->flags->minus = 0;
-	ptr->flags->plus = 0;
-	ptr->flags->space = 0;
-	ptr->conv->sign = 0;
-	ptr->conv->sep = 0;
-	ptr->conv->min_width = 0;
-	ptr->conv->precision = 0;
-	ptr->conv->prec_set = 0;
-	ptr->conv->type = 0;
+	ptr->f_print = ft_strnew(N);
+	ptr->hash = 0;
+	ptr->zero = 0;
+	ptr->minus = 0;
+	ptr->plus = 0;
+	ptr->space = 0;
+	ptr->sign = 0;
+	ptr->sep = 0;
+	ptr->min_width = 0;
+	ptr->precision = 0;
+	ptr->prec_set = 0;
+	ptr->type = 0;
 	return (ptr);
 }
 
@@ -42,7 +55,7 @@ void		parser(t_data *ptr, va_list arg)
 		{
 			ptr->i++;
 			parse_conversion(ptr, arg);
-			if (ft_strchr("idouxX", ptr->conv->type))
+			if (ft_strchr("idouxX", ptr->type))
 				print_nbr_conv(ptr, arg);
 			else
 				print_str_conv(ptr, arg);
@@ -61,8 +74,7 @@ int		ft_printf(const char *format, ...)
 	t_data *ptr;
 	va_list	args;
 
-	ptr->format = format;
-	ptr = initialize(ptr);
+	ptr = initialize(format);
 	if (format)
 	{
 		va_start(args, format);
@@ -71,5 +83,6 @@ int		ft_printf(const char *format, ...)
 	}
 	else
 		return (-1);
+	ft_free(ptr);
 	return (ptr->len);
 }
