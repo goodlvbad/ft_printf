@@ -6,7 +6,7 @@
 /*   By: oearlene <oearlene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/12 23:10:12 by oearlene          #+#    #+#             */
-/*   Updated: 2020/10/08 22:00:44 by oearlene         ###   ########.fr       */
+/*   Updated: 2020/10/08 22:05:39 by oearlene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ int			print_str(t_data *ptr, char *str)
 	{
 		if (len > ptr->precision)
 			len = print(ptr, str, ptr->precision);
+		else
+			len = print(ptr, str, 0);
 	}
 	else
 		len = print(ptr, str, 0);
