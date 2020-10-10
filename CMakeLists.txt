@@ -75,4 +75,4 @@ add_executable(ft_printf
         srcs/print_nbr_conversions.c
         main.c
         srcs/print_strings.c
-        srcs/print.c)
+        srcs/print.c srcs/print_hex_nb.c)

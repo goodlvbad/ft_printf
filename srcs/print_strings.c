@@ -6,7 +6,7 @@
 /*   By: oearlene <oearlene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/12 23:10:12 by oearlene          #+#    #+#             */
-/*   Updated: 2020/10/08 22:05:39 by oearlene         ###   ########.fr       */
+/*   Updated: 2020/10/10 16:43:28 by oearlene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ int			print_str(t_data *ptr, char *str)
 	len = ft_strlen(str);
 	if (ptr->prec_set)
 	{
+		if (ptr->precision == 0)
+			str = "";
 		if (len > ptr->precision)
 			len = print(ptr, str, ptr->precision);
 		else

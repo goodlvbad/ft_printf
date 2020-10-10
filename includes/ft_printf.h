@@ -6,7 +6,7 @@
 /*   By: oearlene <oearlene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/12 13:19:54 by oearlene          #+#    #+#             */
-/*   Updated: 2020/10/08 22:11:44 by oearlene         ###   ########.fr       */
+/*   Updated: 2020/10/10 18:15:59 by oearlene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef enum		e_length
 **	f_print		-	string that print after '%'
 **	len			-	length of string
 **	i			-	counter of reading string
+**	flag		-	flag for nbrs shows if precision was set and nb is 0
 **	prec_set	-	flag shows if precision was set or wasn't
 */
 
@@ -43,7 +44,7 @@ typedef struct		s_data
 	char			*f_print;
 	int				len;
 	size_t			i;
-
+	int				flag;
 	char			sep;
 	int				min_width;
 	int				precision;
@@ -83,6 +84,7 @@ void				print_nbr_conv(t_data *ptr, va_list arg);
 void				check_if_alias(t_data *ptr);
 unsigned long long	get_conv_unsign(t_data *ptr, va_list arg);
 long long			get_conv_sign(t_data *ptr, va_list arg);
+void				check_if_prec_set(t_data *ptr, int nbr);
 
 int					print(t_data *ptr, char *str, int size);
 int					print_spacing(int len, int min, char c);

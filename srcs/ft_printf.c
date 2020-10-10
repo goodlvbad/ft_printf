@@ -44,6 +44,7 @@ t_data	*initialize(const char *format)
 	ptr->precision = 0;
 	ptr->prec_set = 0;
 	ptr->type = 0;
+	ptr->flag = 0;
 	return (ptr);
 }
 

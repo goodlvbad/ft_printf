@@ -32,6 +32,7 @@ SRC_NAME =  ft_printf.c \
             print.c \
             print_nbr_conversions.c \
             print_numbers.c \
+            print_hex_nb.c \
             print_strings.c
 
 FLAGS = -Wall -Wextra -Werror
