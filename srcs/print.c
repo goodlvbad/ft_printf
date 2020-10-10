@@ -6,7 +6,7 @@
 /*   By: oearlene <oearlene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/18 22:21:25 by oearlene          #+#    #+#             */
-/*   Updated: 2020/10/10 16:22:27 by oearlene         ###   ########.fr       */
+/*   Updated: 2020/10/10 16:24:05 by oearlene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int		print_spacing(int len, int min, char c)
 	return (i);
 }
 
-void 	ft_putstr_sized(char *str, int size)
+void	ft_putstr_sized(char *str, int size)
 {
 	int i;
 

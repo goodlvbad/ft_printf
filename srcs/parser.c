@@ -6,13 +6,13 @@
 /*   By: oearlene <oearlene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/12 13:19:45 by oearlene          #+#    #+#             */
-/*   Updated: 2020/10/08 20:53:07 by oearlene         ###   ########.fr       */
+/*   Updated: 2020/10/11 00:37:17 by oearlene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	parse_flags(t_data *ptr)
+void		parse_flags(t_data *ptr)
 {
 	while (ft_strchr("#0-+ ", ptr->f_copy[ptr->i]))
 	{
@@ -28,30 +28,23 @@ void	parse_flags(t_data *ptr)
 			ptr->space = 1;
 		else if (ptr->f_copy[ptr->i] == '\0')
 			break ;
-	//	else
-	//		printf_error("Parse Flags fucked up.");
 		ptr->i++;
 	}
-	//if (!ptr->f_print)
-	//	printf_error("Invalid format. (After Flags)");
 }
 
-void	parse_min_width(t_data *ptr)
+void		parse_min_width(t_data *ptr)
 {
-	char *str;
+	char	*str;
 
 	str = &(ptr->f_copy[ptr->i]);
-	// add '*.'
 	ptr->min_width = ft_atoi(str);
 	while (ft_isdigit(ptr->f_copy[ptr->i]))
 		ptr->i++;
-//	if (!ptr->f_print)
-	//	printf_error("Invalid format. (After Min Width)");
 }
 
-void	parse_precision(t_data *ptr, va_list arg)
+void		parse_precision(t_data *ptr, va_list arg)
 {
-	char *str;
+	char	*str;
 
 	if (ptr->f_copy[ptr->i] != '.')
 		return ;
@@ -67,13 +60,12 @@ void	parse_precision(t_data *ptr, va_list arg)
 	ptr->precision = ft_atoi(str);
 	while (ft_isdigit(ptr->f_copy[ptr->i]))
 		ptr->i++;
-//	if (!ptr->f_print)
-	//	printf_error("Invalid format. (After Precision)");
 }
 
-void	parse_length(t_data *ptr)
+void		parse_length(t_data *ptr)
 {
-	char *str;
+	char	*str;
+
 	if (!ft_strchr("hl", ptr->f_copy[ptr->i]))
 		return ;
 	str = &(ptr->f_copy[ptr->i]);
@@ -91,10 +83,12 @@ void	parse_length(t_data *ptr)
 		ptr->length = H;
 	else if (ptr->f_copy[ptr->i] == 'l')
 		ptr->length = L;
+	else if (ptr->f_copy[ptr->i] == 'L')
+		ptr->length = LF;
 	ptr->i++;
 }
 
-void	parse_conversion(t_data *ptr, va_list arg)
+void		parse_conversion(t_data *ptr, va_list arg)
 {
 	parse_flags(ptr);
 	if (ft_strchr(",;:_", ptr->f_copy[ptr->i]))
@@ -102,14 +96,10 @@ void	parse_conversion(t_data *ptr, va_list arg)
 		ptr->sep = ptr->f_copy[ptr->i];
 		ptr->i++;
 	}
-//	if (!ptr->f_print)
-//		printf_error("Invalid format. (After Separator)");
 	parse_min_width(ptr);
 	parse_precision(ptr, arg);
 	if (ptr->precision < 0)
 		ptr->prec_set = 0;
 	parse_length(ptr);
-//	if (!ptr->f_print)
-//		printf_error("Invalid format. (After Length)");
 	ptr->type = ptr->f_copy[ptr->i];
 }

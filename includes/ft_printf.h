@@ -6,7 +6,7 @@
 /*   By: oearlene <oearlene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/12 13:19:54 by oearlene          #+#    #+#             */
-/*   Updated: 2020/10/10 18:15:59 by oearlene         ###   ########.fr       */
+/*   Updated: 2020/10/11 00:30:24 by oearlene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 
 typedef enum		e_length
 {
-	NONE, HH, H, LL, L
+	NONE, HH, H, LL, L, LF
 }					t_length;
 
 /*
@@ -33,8 +33,8 @@ typedef enum		e_length
 **	f_print		-	string that print after '%'
 **	len			-	length of string
 **	i			-	counter of reading string
-**	flag		-	flag for nbrs shows if precision was set and nb is 0
 **	prec_set	-	flag shows if precision was set or wasn't
+**	flag		-	flag for nbrs shows if precision was set and nb is 0
 */
 
 typedef struct		s_data
@@ -44,13 +44,14 @@ typedef struct		s_data
 	char			*f_print;
 	int				len;
 	size_t			i;
-	int				flag;
+
 	char			sep;
 	int				min_width;
 	int				precision;
 	int				prec_set;
 	char			type;
 	char			sign;
+	int				flag;
 
 	t_length		length;
 
@@ -60,10 +61,9 @@ typedef struct		s_data
 	int				plus;
 	int				space;
 
-	// need to be done f F (l L)
-
+	long int		int_part_f;
+	int				fractional;
 }					t_data;
-
 
 int					ft_printf(const char *format, ...);
 
@@ -78,27 +78,29 @@ void				parse_precision(t_data *ptr, va_list arg);
 void				parse_min_width(t_data *ptr);
 void				parse_flags(t_data *ptr);
 
-
-void				print_nbr_conv(t_data *ptr, va_list arg);
-
 void				check_if_alias(t_data *ptr);
 unsigned long long	get_conv_unsign(t_data *ptr, va_list arg);
 long long			get_conv_sign(t_data *ptr, va_list arg);
-void				check_if_prec_set(t_data *ptr, int nbr);
+void				print_nbr_conv(t_data *ptr, va_list arg);
+
+void				round_float_nb(t_data *ptr, long double nbr);
+int					ft_print_f(t_data *ptr);
+void				get_f(t_data *ptr, va_list arg);
 
 int					print(t_data *ptr, char *str, int size);
 int					print_spacing(int len, int min, char c);
 void				ft_putstr_sized(char *str, int size);
 
+void				check_if_prec_set(t_data *ptr, int nbr);
 int					print_u(t_data *ptr, unsigned long long num);
+int					print_sign(t_data *ptr);
 int					print_d(t_data *ptr, long long num);
 int					print_o(t_data *ptr, unsigned long long n);
-int					print_x(t_data *ptr,unsigned long long n);
-int					print_x_caps(t_data *ptr,unsigned long long n);
+int					print_x(t_data *ptr, unsigned long long n);
+int					print_x_caps(t_data *ptr, unsigned long long n);
 
 void				print_str_conv(t_data *ptr, va_list arg);
 int					print_str(t_data *ptr, char *str);
 int					print_char(t_data *ptr, char c);
-
 
 #endif

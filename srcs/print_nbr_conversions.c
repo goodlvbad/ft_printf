@@ -6,7 +6,7 @@
 /*   By: oearlene <oearlene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/12 23:15:09 by oearlene          #+#    #+#             */
-/*   Updated: 2020/10/08 21:14:35 by oearlene         ###   ########.fr       */
+/*   Updated: 2020/10/10 23:47:53 by oearlene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ long long				get_conv_sign(t_data *ptr, va_list arg)
 	if (ptr->length == L)
 		return (va_arg(arg, long));
 	if (ptr->length == LL)
-		return (va_arg(arg,  long long));
+		return (va_arg(arg, long long));
 	return (va_arg(arg, int));
 }
 
@@ -38,10 +38,12 @@ unsigned long long		get_conv_unsign(t_data *ptr, va_list arg)
 	return (va_arg(arg, unsigned int));
 }
 
-void		check_if_alias(t_data *ptr)
+void					check_if_alias(t_data *ptr)
 {
 	if (ptr->type == 'i')
 		ptr->type = 'd';
+	else if (ptr->type == 'F')
+		ptr->type = 'f';
 	else if (ptr->type == 'p')
 	{
 		ptr->length = L;
@@ -49,23 +51,29 @@ void		check_if_alias(t_data *ptr)
 	}
 }
 
-void		print_nbr_conv(t_data *ptr, va_list arg)
+void					get_d(t_data *ptr, va_list arg)
+{
+	long long			nb;
+
+	nb = get_conv_sign(ptr, arg);
+	if (nb < 0 && (nb *= -1))
+		ptr->sign = '-';
+	else if (ptr->plus)
+		ptr->sign = '+';
+	else if (ptr->space)
+		ptr->sign = ' ';
+	ptr->len += print_d(ptr, nb);
+}
+
+void					print_nbr_conv(t_data *ptr, va_list arg)
 {
 	unsigned long long	n;
-	long long nb;
 
 	check_if_alias(ptr);
-	if (ptr->type == 'd')
-	{
-		nb = get_conv_sign(ptr, arg);
-		if (nb < 0 && (nb *= -1))
-			ptr->sign = '-';
-		else if (ptr->plus)
-			ptr->sign = '+';
-		else if (ptr->space)
-			ptr->sign = ' ';
-		ptr->len += print_d(ptr, nb);
-	}
+	if (ptr->type == 'f')
+		get_f(ptr, arg);
+	else if (ptr->type == 'd')
+		get_d(ptr, arg);
 	else
 		n = get_conv_unsign(ptr, arg);
 	if (ptr->type == 'u')

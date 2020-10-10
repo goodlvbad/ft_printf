@@ -6,7 +6,7 @@
 /*   By: oearlene <oearlene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/12 23:10:12 by oearlene          #+#    #+#             */
-/*   Updated: 2020/10/10 16:43:28 by oearlene         ###   ########.fr       */
+/*   Updated: 2020/10/10 20:00:17 by oearlene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,25 @@ int			print_char(t_data *ptr, char c)
 {
 	int len;
 
-	ptr->f_print[0] = c;
-	len = print(ptr, &ptr->f_print[0], 0);
+	len = 0;
+	if (c == '\0')
+	{
+		write(1, 0, 1);
+		len += 1;
+		ptr->min_width--;
+	}
+	else
+		ptr->f_print[0] = c;
+	len += print(ptr, &ptr->f_print[0], 0);
 	return (len);
 }
 
 int			print_str(t_data *ptr, char *str)
 {
-	if (!str)
-		str = "(null)";
 	int len;
 
+	if (!str)
+		str = "(null)";
 	len = ft_strlen(str);
 	if (ptr->prec_set)
 	{

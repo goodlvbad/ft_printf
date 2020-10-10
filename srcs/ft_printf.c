@@ -6,13 +6,13 @@
 /*   By: oearlene <oearlene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/12 13:19:15 by oearlene          #+#    #+#             */
-/*   Updated: 2020/10/08 22:09:45 by oearlene         ###   ########.fr       */
+/*   Updated: 2020/10/10 20:59:05 by oearlene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void 	ft_free(t_data *ptr)
+void		ft_free(t_data *ptr)
 {
 	ptr->format = NULL;
 	ft_strdel(&(ptr->f_copy));
@@ -21,9 +21,9 @@ void 	ft_free(t_data *ptr)
 	ptr = NULL;
 }
 
-t_data	*initialize(const char *format)
+t_data		*initialize(const char *format)
 {
-	t_data *ptr;
+	t_data	*ptr;
 
 	if (!(ptr = (t_data*)malloc(sizeof(t_data))))
 		return (NULL);
@@ -45,6 +45,8 @@ t_data	*initialize(const char *format)
 	ptr->prec_set = 0;
 	ptr->type = 0;
 	ptr->flag = 0;
+	ptr->int_part_f = 0;
+	ptr->fractional = 0;
 	return (ptr);
 }
 
@@ -56,23 +58,23 @@ void		parser(t_data *ptr, va_list arg)
 		{
 			ptr->i++;
 			parse_conversion(ptr, arg);
-			if (ft_strchr("idouxX", ptr->type))
+			if (ft_strchr("pidouxXfF", ptr->type))
 				print_nbr_conv(ptr, arg);
 			else
 				print_str_conv(ptr, arg);
 		}
 		else
 		{
-			write(1,&(ptr->f_copy[ptr->i]),1);
+			write(1, &(ptr->f_copy[ptr->i]), 1);
 			ptr->len++;
 		}
 		ptr->i++;
 	}
 }
 
-int		ft_printf(const char *format, ...)
+int			ft_printf(const char *format, ...)
 {
-	t_data *ptr;
+	t_data	*ptr;
 	va_list	args;
 
 	ptr = initialize(format);
