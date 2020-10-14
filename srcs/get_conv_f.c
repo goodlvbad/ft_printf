@@ -68,7 +68,7 @@ int					ft_save_f(t_data *ptr, int i)
 	}
 	else
 	{
-		while (ptr->precision > 49 - i)
+		while (ptr->precision > ((N - 1)/2) - i)
 			ptr->f_print[--i] = '0';
 		ptr->f_print[--i] = '.';
 	}
@@ -81,7 +81,7 @@ int					ft_print_f(t_data *ptr)
 	int				i;
 
 	len = 0;
-	i = 99;
+	i = N - 1;
 	i = ft_save_f(ptr, i);
 	if (ptr->sign == '-')
 		ptr->f_print[--i] = '0';

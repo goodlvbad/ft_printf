@@ -31,13 +31,13 @@ int		print_u(t_data *ptr, unsigned long long n)
 	int	i;
 
 	len = 0;
-	i = 99;
+	i = N - 1;
 	check_if_prec_set(ptr, (int)n);
 	if (!ptr->flag)
 		ptr->f_print[--i] = '0' + (n % 10);
 	while ((n /= 10) > 0)
 		ptr->f_print[--i] = '0' + (n % 10);
-	while (ptr->precision > 99 - i)
+	while (ptr->precision > (N - 1) - i)
 		ptr->f_print[--i] = '0';
 	len += print(ptr, ptr->f_print + i, 0);
 	return (len);
@@ -60,13 +60,13 @@ int		print_d(t_data *ptr, long long nb)
 	int	i;
 
 	len = 0;
-	i = 99;
+	i = N - 1;
 	check_if_prec_set(ptr, (int)nb);
 	if (!ptr->flag)
 		ptr->f_print[--i] = '0' + (nb % 10);
 	while ((nb /= 10) > 0)
 		ptr->f_print[--i] = '0' + (nb % 10);
-	while (ptr->precision > 99 - i)
+	while (ptr->precision > (N - 1) - i)
 		ptr->f_print[--i] = '0';
 	if (ptr->zero && ptr->sign)
 		len += print_sign(ptr);
@@ -81,7 +81,7 @@ int		print_o(t_data *ptr, unsigned long long n)
 	int	len;
 	int	i;
 
-	i = 99;
+	i = N - 1;
 	check_if_prec_set(ptr, (int)n);
 	if (!ptr->flag)
 		ptr->f_print[--i] = '0' + (n % 8);
@@ -91,7 +91,7 @@ int		print_o(t_data *ptr, unsigned long long n)
 		ptr->f_print[--i] = '0';
 	if (ptr->prec_set)
 		ptr->zero = 0;
-	while (ptr->precision > 99 - i)
+	while (ptr->precision > (N - 1) - i)
 		ptr->f_print[--i] = '0';
 	len = print(ptr, ptr->f_print + i, 0);
 	return (len);

@@ -14,10 +14,10 @@
 
 int		print_p(t_data *ptr, int i)
 {
-	if (ptr->zero && ((ptr->hash && i < 99 && ptr->f_print[98] != '0')
+	if (ptr->zero && ((ptr->hash && i < N - 1 && ptr->f_print[N - 2] != '0')
 			|| ptr->type == 'p'))
 		ptr->min_width -= 2;
-	else if ((ptr->hash && i < 99 && ptr->f_print[98] != '0')
+	else if ((ptr->hash && i < N - 1 && ptr->f_print[N - 2] != '0')
 			|| ptr->type == 'p')
 	{
 		ptr->f_print[--i] = 'x';
@@ -49,7 +49,7 @@ int		print_x(t_data *ptr, unsigned long long n)
 	int	len;
 	int	i;
 
-	i = 99;
+	i = N - 1;
 	check_if_prec_set(ptr, (int)n);
 	if (!ptr->flag)
 	{
@@ -65,7 +65,7 @@ int		print_x(t_data *ptr, unsigned long long n)
 		else
 			ptr->f_print[--i] = '0' + (n % 16) + 39;
 	}
-	while (ptr->precision > 99 - i)
+	while (ptr->precision > (N - 1) - i)
 		ptr->f_print[--i] = '0';
 	i = print_p(ptr, i);
 	len = print(ptr, ptr->f_print + i, 0);
@@ -77,7 +77,7 @@ int		print_x_caps(t_data *ptr, unsigned long long n)
 	int	len;
 	int	i;
 
-	i = 99;
+	i = N - 1;
 	len = 0;
 	check_if_prec_set(ptr, (int)n);
 	if (!ptr->flag)
@@ -94,7 +94,7 @@ int		print_x_caps(t_data *ptr, unsigned long long n)
 		else
 			ptr->f_print[--i] = '0' + (n % 16) + 7;
 	}
-	while (ptr->precision > 99 - i)
+	while (ptr->precision > (N - 1) - i)
 		ptr->f_print[--i] = '0';
 	len += print(ptr, ptr->f_print + i, 0);
 	return (len);

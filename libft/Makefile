@@ -73,6 +73,10 @@ SRC =	ft_memset.c \
 
 OBJ = $(SRC:.c=.o)
 
+OBJ_PATH = ./obj/
+
+OBJ_1 = $(addprefix $(OBJ_PATH),$(OBJ))
+
 HED = libft.h
 
 FLAGS = -Wall -Wextra -Werror
@@ -81,16 +85,17 @@ FLAGS = -Wall -Wextra -Werror
 
 all: $(NAME)
 
-%.o: %.c
+$(OBJ_PATH)%.o: %.c
+	@mkdir -p $(OBJ_PATH)
 	@gcc $(FLAGS) -c $< -o $@
 
-$(NAME): $(OBJ)
-	@ar rc $(NAME) $(OBJ) $(HED)
+$(NAME): $(OBJ_1)
+	@ar rc $(NAME) $(OBJ_1) $(HED)
 
 clean:
-	@/bin/rm -rf $(OBJ)
+	@/bin/rm -rf $(OBJ_PATH)
 
 fclean: clean
-	@/bin/rm -rf $(NAME)
+	@/bin/rm -f $(NAME)
 
 re: fclean all

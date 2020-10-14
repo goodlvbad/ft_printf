@@ -58,6 +58,8 @@ void		parse_precision(t_data *ptr, va_list arg)
 	}
 	str = &(ptr->f_copy[ptr->i]);
 	ptr->precision = ft_atoi(str);
+	if (ptr->precision < 0)
+		ptr->prec_set = 0;
 	while (ft_isdigit(ptr->f_copy[ptr->i]))
 		ptr->i++;
 }
@@ -66,7 +68,7 @@ void		parse_length(t_data *ptr)
 {
 	char	*str;
 
-	if (!ft_strchr("hl", ptr->f_copy[ptr->i]))
+	if (!ft_strchr("hlL", ptr->f_copy[ptr->i]))
 		return ;
 	str = &(ptr->f_copy[ptr->i]);
 	if (ft_strncmp(str, "hh", 2) == 0)
@@ -91,15 +93,8 @@ void		parse_length(t_data *ptr)
 void		parse_conversion(t_data *ptr, va_list arg)
 {
 	parse_flags(ptr);
-	if (ft_strchr(",;:_", ptr->f_copy[ptr->i]))
-	{
-		ptr->sep = ptr->f_copy[ptr->i];
-		ptr->i++;
-	}
 	parse_min_width(ptr);
 	parse_precision(ptr, arg);
-	if (ptr->precision < 0)
-		ptr->prec_set = 0;
 	parse_length(ptr);
 	ptr->type = ptr->f_copy[ptr->i];
 }
