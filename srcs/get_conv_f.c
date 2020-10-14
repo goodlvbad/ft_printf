@@ -6,7 +6,7 @@
 /*   By: oearlene <oearlene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/10 21:06:45 by oearlene          #+#    #+#             */
-/*   Updated: 2020/10/11 00:28:14 by oearlene         ###   ########.fr       */
+/*   Updated: 2020/10/14 18:20:53 by oearlene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int					ft_save_f(t_data *ptr, int i)
 	}
 	else
 	{
-		while (ptr->precision > ((N - 1)/2) - i)
+		while (ptr->precision > (N - 1) - i)
 			ptr->f_print[--i] = '0';
 		ptr->f_print[--i] = '.';
 	}
@@ -96,13 +96,17 @@ void				get_f(t_data *ptr, va_list arg)
 {
 	long double		nbr;
 
-	if (ptr->length == LF)
-		nbr = va_arg(arg, long double);
-	else
-		nbr = va_arg(arg, double);
 	ptr->flag = 0;
 	if (!(ptr->prec_set))
 		ptr->precision = 6;
+	if (ptr->length == LF)
+	{
+		nbr = va_arg(arg, long double);
+		ptr->len += ft_print_f(ptr);
+		return ;
+	}
+	else
+		nbr = va_arg(arg, double);
 	if (nbr < 0 && (nbr *= -1))
 		ptr->sign = '-';
 	ptr->int_part_f = (long int)nbr;

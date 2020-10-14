@@ -6,7 +6,7 @@
 /*   By: oearlene <oearlene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 14:00:19 by oearlene          #+#    #+#             */
-/*   Updated: 2020/10/14 16:54:25 by oearlene         ###   ########.fr       */
+/*   Updated: 2020/10/14 18:27:08 by oearlene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ int		main(void)
 {
 	int t;
 
-	t = ft_printf("This is the f %Lf number", 3.4);
+	t = ft_printf("%.*Lf", 40, 3.4E-4900);
 	printf("\n%d\n", t);
-	t = printf("This is the f %Lf number", 3.4);
+	t = printf("%.*Lf", 40 ,3.4E-4900);
 	printf("\n%d\n", t);
 	return (0);
 }
