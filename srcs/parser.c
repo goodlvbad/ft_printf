@@ -6,7 +6,7 @@
 /*   By: oearlene <oearlene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/12 13:19:45 by oearlene          #+#    #+#             */
-/*   Updated: 2020/10/11 00:37:17 by oearlene         ###   ########.fr       */
+/*   Updated: 2020/10/17 15:29:52 by oearlene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,16 @@ void		parse_flags(t_data *ptr)
 	}
 }
 
-void		parse_min_width(t_data *ptr)
+void		parse_min_width(t_data *ptr, va_list arg)
 {
 	char	*str;
 
+	if (ptr->f_copy[ptr->i] == '*')
+	{
+		ptr->min_width = va_arg(arg, int);
+		ptr->i++;
+		return ;
+	}
 	str = &(ptr->f_copy[ptr->i]);
 	ptr->min_width = ft_atoi(str);
 	while (ft_isdigit(ptr->f_copy[ptr->i]))
@@ -75,11 +81,13 @@ void		parse_length(t_data *ptr)
 	{
 		ptr->length = HH;
 		ptr->i += 2;
+		return ;
 	}
 	if (ft_strncmp(str, "ll", 2) == 0)
 	{
 		ptr->length = LL;
 		ptr->i += 2;
+		return ;
 	}
 	else if (ptr->f_copy[ptr->i] == 'h')
 		ptr->length = H;
@@ -93,7 +101,7 @@ void		parse_length(t_data *ptr)
 void		parse_conversion(t_data *ptr, va_list arg)
 {
 	parse_flags(ptr);
-	parse_min_width(ptr);
+	parse_min_width(ptr, arg);
 	parse_precision(ptr, arg);
 	parse_length(ptr);
 	ptr->type = ptr->f_copy[ptr->i];

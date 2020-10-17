@@ -6,7 +6,7 @@
 /*   By: oearlene <oearlene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/12 13:19:54 by oearlene          #+#    #+#             */
-/*   Updated: 2020/10/14 18:15:56 by oearlene         ###   ########.fr       */
+/*   Updated: 2020/10/17 15:29:52 by oearlene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void				parser(t_data *ptr, va_list arg);
 void				parse_conversion(t_data *ptr, va_list arg);
 void				parse_length(t_data *ptr);
 void				parse_precision(t_data *ptr, va_list arg);
-void				parse_min_width(t_data *ptr);
+void				parse_min_width(t_data *ptr, va_list arg);
 void				parse_flags(t_data *ptr);
 
 void				check_if_alias(t_data *ptr);

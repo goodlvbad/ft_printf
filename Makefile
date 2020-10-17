@@ -6,7 +6,7 @@
 #    By: oearlene <oearlene@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/08 20:13:00 by oearlene          #+#    #+#              #
-#    Updated: 2020/10/08 21:17:28 by oearlene         ###   ########.fr        #
+#    Updated: 2020/10/17 15:07:16 by oearlene         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,14 +16,21 @@ SRC_PATH = ./srcs/
 INC_PATH = ./includes/
 OBJ_PATH = ./obj/
 LFT_PATH = ./libft/
+LFT_OBJ_PATH = ./libft/obj/
 
 SRC = $(addprefix $(SRC_PATH),$(SRC_NAME))
 OBJ = $(addprefix $(OBJ_PATH),$(OBJ_NAME))
-INC = $(addprefix -I,$(INC_PATH))
-LFT = $(addprefix -I,$(LFT_PATH))
+INC = $(addprefix -I ,$(INC_PATH))
+INC_LFT = $(addprefix -I ,$(LFT_PATH))
 INC_H = $(addprefix $(INC_PATH),$(INC_NAME))
+LFT = $(addprefix $(LFT_OBJ_PATH),$(LFT_OBJ_NAME))
+LFT_H = $(addprefix $(LFT_PATH),$(LFT_H_NAME))
+
+LFT_OBJ_NAME = *.o
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
+
+LFT_H_NAME = libft.h
 
 INC_NAME = ft_printf.h
 
@@ -44,11 +51,11 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	make -C $(LFT_PATH)
-	ar rc $(NAME) $(OBJ) $(INC_H)
+	ar rc $(NAME) $(OBJ) $(INC_H) $(LFT) $(LFT_H)
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c
 	mkdir -p $(OBJ_PATH)
-	gcc $(FLAGS) $(INC) $(LFT) -o $@ -c $<
+	gcc $(FLAGS) $(INC) $(INC_LFT) -o $@ -c $<
 
 clean:
 	make -C $(LFT_PATH) clean

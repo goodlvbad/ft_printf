@@ -6,7 +6,7 @@
 /*   By: oearlene <oearlene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 14:00:19 by oearlene          #+#    #+#             */
-/*   Updated: 2020/10/14 18:27:08 by oearlene         ###   ########.fr       */
+/*   Updated: 2020/10/17 15:27:38 by oearlene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,13 @@ int		main(void)
 {
 	int t;
 
-	t = ft_printf("%.*Lf", 40, 3.4E-4900);
+	t = ft_printf("%%-*.3s LYDI = |%-*.3s|", 5, "LYDI");
 	printf("\n%d\n", t);
-	t = printf("%.*Lf", 40 ,3.4E-4900);
+	t = printf("%%-*.3s LYDI = |%-*.3s|", 5, "LYDI");
+	printf("\n%d\n", t);
+	t = ft_printf("%012hhd", 2345);
+	printf("\n%d\n", t);
+	t = printf("%012hhd", 2345);
 	printf("\n%d\n", t);
 	return (0);
 }

@@ -91,6 +91,7 @@ $(OBJ_PATH)%.o: %.c
 
 $(NAME): $(OBJ_1)
 	@ar rc $(NAME) $(OBJ_1) $(HED)
+	@ranlib $(NAME)
 
 clean:
 	@/bin/rm -rf $(OBJ_PATH)
