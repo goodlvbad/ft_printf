@@ -18,12 +18,12 @@ int		main(void)
 {
 	int t;
 
-	t = ft_printf("%%\t4");
+	t = ft_printf("%%\t4\t\t%0.2u , \t%s ,\t%f", 24567, "hello", 12.065);
 	printf("\n%d\n", t);
-	t = printf("%%\t5");
+	t = printf("%%\t5\t\t%0.2u , \t%s ,\t%f", 24567, "hello", 12.065);
 	printf("\n%d\n", t);
 
-
+/*
 	t = ft_printf("%%-*.3s LYDI = |%-*.3s|", 5, "LYDI");
 	printf("\n%d\n", t);
 	t = printf("%%-*.3s LYDI = |%-*.3s|", 5, "LYDI");
@@ -32,5 +32,6 @@ int		main(void)
 	printf("\n%d\n", t);
 	t = printf("%012d", 2345);
 	printf("\n%d\n", t);
+ */
 	return (0);
 }

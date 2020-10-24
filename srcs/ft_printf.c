@@ -6,7 +6,7 @@
 /*   By: oearlene <oearlene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/12 13:19:15 by oearlene          #+#    #+#             */
-/*   Updated: 2020/10/10 20:59:05 by oearlene         ###   ########.fr       */
+/*   Updated: 2020/10/24 17:20:31 by oearlene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ t_data		*initialize(const char *format)
 	ptr->plus = 0;
 	ptr->space = 0;
 	ptr->sign = 0;
-	ptr->sep = 0;
 	ptr->min_width = 0;
 	ptr->precision = 0;
 	ptr->prec_set = 0;
@@ -48,6 +47,24 @@ t_data		*initialize(const char *format)
 	ptr->int_part_f = 0;
 	ptr->fractional = 0;
 	return (ptr);
+}
+
+void		*reinitialize(t_data *ptr)
+{
+	ptr->length = NONE;
+	ptr->hash = 0;
+	ptr->zero = 0;
+	ptr->minus = 0;
+	ptr->plus = 0;
+	ptr->space = 0;
+	ptr->sign = 0;
+	ptr->min_width = 0;
+	ptr->precision = 0;
+	ptr->prec_set = 0;
+	ptr->type = 0;
+	ptr->flag = 0;
+	ptr->int_part_f = 0;
+	ptr->fractional = 0;
 }
 
 void		parser(t_data *ptr, va_list arg)
@@ -62,6 +79,7 @@ void		parser(t_data *ptr, va_list arg)
 				print_nbr_conv(ptr, arg);
 			else
 				print_str_conv(ptr, arg);
+			reinitialize(ptr);
 		}
 		else
 		{

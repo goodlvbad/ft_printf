@@ -6,7 +6,7 @@
 /*   By: oearlene <oearlene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/12 13:19:54 by oearlene          #+#    #+#             */
-/*   Updated: 2020/10/17 15:29:52 by oearlene         ###   ########.fr       */
+/*   Updated: 2020/10/24 17:20:21 by oearlene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ typedef struct		s_data
 	int				len;
 	size_t			i;
 
-	char			sep;
 	int				min_width;
 	int				precision;
 	int				prec_set;
@@ -69,6 +68,7 @@ int					ft_printf(const char *format, ...);
 
 t_data				*initialize(const char *format);
 void				ft_free(t_data *ptr);
+void				*reinitialize(t_data *ptr);
 
 void				parser(t_data *ptr, va_list arg);
 
