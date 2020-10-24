@@ -6,7 +6,7 @@
 /*   By: oearlene <oearlene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/12 13:19:54 by oearlene          #+#    #+#             */
-/*   Updated: 2020/10/24 17:20:21 by oearlene         ###   ########.fr       */
+/*   Updated: 2020/10/24 17:22:35 by oearlene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int					ft_printf(const char *format, ...);
 
 t_data				*initialize(const char *format);
 void				ft_free(t_data *ptr);
-void				*reinitialize(t_data *ptr);
+void				reinitialize(t_data *ptr);
 
 void				parser(t_data *ptr, va_list arg);
 

@@ -6,7 +6,7 @@
 /*   By: oearlene <oearlene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/12 13:19:15 by oearlene          #+#    #+#             */
-/*   Updated: 2020/10/24 17:20:31 by oearlene         ###   ########.fr       */
+/*   Updated: 2020/10/24 17:25:41 by oearlene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ t_data		*initialize(const char *format)
 	return (ptr);
 }
 
-void		*reinitialize(t_data *ptr)
+void		reinitialize(t_data *ptr)
 {
 	ptr->length = NONE;
 	ptr->hash = 0;
